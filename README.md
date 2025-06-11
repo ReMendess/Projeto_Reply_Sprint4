@@ -36,10 +36,37 @@ Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/
 
 Seguindo com o desenvolvimento de nossa solução, nessa etapa dois, simulamos e habilitamos os sensores, utilizando o Wokwi.
 
+ESP32 - placa de centro de controle.
+DHT22 - sensor de temperatura e umidade.
+MPU6050 - sensor acelerômetro e giroscópio.
+Potenciômetro - simulando sensor de corrente.
+
+Sensor	Pino / Interface	Mede o quê	Tipo
+DHT22	Pino 26 (digital)	Temperatura e umidade	Sensor digital ambiental
+MPU6050	I2C (SDA 22, SCL 23)	Aceleração (vibração) e rotação	Acelerômetro / giroscópio
+Potenciômetro	Pino 33 (analógico)	Corrente simulada (0 a 30 A)	Simulad
+
+
+  | Sensor        | Pino / Interface |      Medição               |
+  |-----------    |------------------|----------------------      |
+  |DHT22          |Pino 26           | Temperatura e umidade      | 
+  |MPU6050        |PI2C              | Vibração e rotação         |
+  |Potenciômetro  |Pino 33           |Corrente simulada 0 a 30 A  |
+
 
 <p align="center">
 <img src="/Sprint_2/simulacao_circuito.png" alt="Sensores"></a>
 </p>
+
+
+Utilizamos um Monitor Serial para acompanhar em tempo real as medições
+
+<p align="center">
+<img src="/Sprint_2/monitor_serial.png" alt="Sensores"></a>
+</p>
+
+
+
 
 # <a name="c3"></a>3. Análise Exploratória
 
