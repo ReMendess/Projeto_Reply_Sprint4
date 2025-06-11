@@ -15,7 +15,7 @@
 
 ## Sumário
 
-[1. Entrega e Planejamento](#c1)
+[1. Solução e Planejamento](#c1)
 
 [2. Sensores - Wokwi](#c2)
 
@@ -25,7 +25,7 @@
 
 <br>
 
-# <a name="c1"></a>1. Entrega e Planejamento
+# <a name="c1"></a>1. Solução e Planejamento
 
 Continuando com o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
 Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/Enterprise_ChallengeSprint_1_Reply
