@@ -34,24 +34,18 @@ Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/
 
 # <a name="c2"></a>2. Sensores - Wokwi
 
-A solução proposta consiste em uma plataforma inteligente de monitoramento industrial, baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados. O objetivo é detectar antecipadamente possíveis falhas em equipamentos, reduzindo paradas inesperadas, otimizando manutenções e promovendo segurança operacional.
+Seguindo com o desenvolvimento de nossa solução, nessa etapa dois, simulamos e habilitamos os sensores, utilizando o Wokwi.
 
-- **Coletar dados em tempo real via sensores IoT**;
 
-- **Armazenar os dados em um banco de dados na nuvem;**
-  
-- **Processamento e Tratamento dos dados;**
-
-- **Aplicar algoritmos de machine learning para predição de falhas;**
-
-- **Visualização em dashboards interativos e simplificados;**
-
-- **Notificar automaticamente os funcionários via aplicativo;**
-
+<p align="center">
+<img src="/Sprint_2/simulacao_circuito.png" alt="Sensores"></a>
+</p>
 
 # <a name="c3"></a>3. Análise Exploratória
 
 A solução proposta consiste em uma plataforma inteligente de monitoramento industrial, baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados. O objetivo é detectar antecipadamente possíveis falhas em equipamentos, reduzindo paradas inesperadas, otimizando manutenções e promovendo segurança operacional.
+
+https://projetoreply-gc6q63kp35czpwwwfc2std.streamlit.app/
 
 
 # <a name="c4"></a>4. Diagrama
