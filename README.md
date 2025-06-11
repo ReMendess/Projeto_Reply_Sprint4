@@ -34,7 +34,7 @@ Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/
 
 # <a name="c2"></a>2. Sensores - Wokwi
 
-Seguindo com o desenvolvimento de nossa solução, nessa etapa dois, simulamos e habilitamos os sensores, utilizando o Wokwi.
+Nessa segunda etapa, criamos um circuito virtual com ESP32. Simulamos e habilitamos os sensores, utilizando o Wokwi. Habilitamos o funcionamento com um código em c (codigo_wokwi_leitura.c).
 
 ESP32 - placa de centro de controle.
 DHT22 - sensor de temperatura e umidade.
@@ -67,15 +67,33 @@ Utilizamos um Monitor Serial para acompanhar em tempo real as medições
 
 
 
-
 # <a name="c3"></a>3. Análise Exploratória
 
-A solução proposta consiste em uma plataforma inteligente de monitoramento industrial, baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados. O objetivo é detectar antecipadamente possíveis falhas em equipamentos, reduzindo paradas inesperadas, otimizando manutenções e promovendo segurança operacional.
+Simulamos os dados captados para realizar uma análise exploratória. E juntamento com Streamlit, criamos uma interface que possibilita separar o número de amostrar, realizar uma análise estastístia e cria três gráficos: Dispesão, Histograma e um Boxplot.
+Acesse a aplicação pelo link: https://projetoreply-gc6q63kp35czpwwwfc2std.streamlit.app/
+Arquivo de código (dados_e_analise.py).
 
-https://projetoreply-gc6q63kp35czpwwwfc2std.streamlit.app/
+<p align="center">
+<img src="/assets/streamlit.png" alt="Sensores"></a>
+</p>
+
+<p align="center">
+<img src="/assets/streamlit2.png" alt="Sensores"></a>
+</p>
+
+<p align="center">
+<img src="/assets/streamlit3.png" alt="Sensores"></a>
+</p>
+
+
+<p align="center">
+<img src="/assets/streamlit4.png" alt="Sensores"></a>
+</p>
+
 
 
 # <a name="c4"></a>4. Diagrama
+Abaixo nossa solução proposta
 
 <p align="center">
 <img src="diagrama.drawio" alt="Driagrama da solução"></a>
