@@ -108,7 +108,7 @@ Na entidade Falha será guardado a descrição da falha captada, nível de sever
 
 Com essas entidades e atributos podemos maximizar a captura de dados relevantes e uteis para identificar as falhas, suas causas e correlações. E também monitorar e classificar a qualidade dos equipamentos. Permitindo uma análise mais profunda e até mesmo a implementação de modelos de inteligência artificial para contribuir com a predição de manutenção.
 
-### Diagrama Entidade-Relacionamento inicial;
+### Diagrama Entidade-Relacionamento inicial
 <p align="center">
 <img src="/assets/Reply3.png" alt="Sensores"></a>
 </p>
@@ -178,8 +178,10 @@ Com essas entidades e atributos podemos maximizar a captura de dados relevantes 
   Uma falha pode estar associada a um sensor (ex: superaquecimento detectado por sensor de temperatura),  
   mas também pode estar ligada à máquina em geral (ex: falha elétrica).  
 
+### Diagrama Entidade-Relacionamento Final
+Criado dentro do Oracle Database
 <p align="center">
-<img src="/assets/Reply3.png" alt="Sensores"></a>
+<img src="/assets/DER_Reply3.png"></a>
 </p>
 
 
