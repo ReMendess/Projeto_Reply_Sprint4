@@ -15,15 +15,6 @@
 
 
 # O que fazer:
-Na parte do Banco de Dados:
-
-Elaborar um Diagrama Entidade-Relacionamento (DER) completo;
-
-Definir as principais tabelas, campos, chaves primárias e relacionamentos;
-
-Prever restrições de integridade (exemplo: tipos de dados, limites de tamanho etc.);
-
-Criar um script SQL inicial de criação das tabelas (CREATE TABLE);
 
 Na parte da ML Básico:
 
@@ -41,13 +32,6 @@ Documentar o código, os dados usados e as análises obtidas, trazer prints dos 
 
 Banco de Dados:
 
-Diagrama ER (Entidade-Relacionamento) com entidades, atributos, relacionamentos, cardinalidades e chaves primárias/estrangeiras;
-
-Descrição de cada entidade e campo, explicando o motivo de sua inclusão;
-
-Script SQL inicial com o código de criação das tabelas;
-
-Prints ou exportações gráficas do modelo criado na ferramenta utilizada;
 
 Previsão de integração futura com ferramentas de visualização de dados. 
 
@@ -95,9 +79,9 @@ Vídeo de até 5 minutos explicando e justificando, com áudio (sem música de f
 
 [1. Solução e Planejamento](#c1)
 
-[2. Sensores - Wokwi](#c2)
+[2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)](#c2)
 
-[3. Análise Exploratória](#c3)
+[3. Machine Learning](#c3)
 
 [4. Diagrama](#c4)
 
@@ -111,6 +95,24 @@ Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/
 # <a name="c2"></a>2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)
 
 Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER). 
+
+Primeiro realizamos uma modelagem em uma ferramenta básica, com a intenção de identificar as principais entidades. Para definir as entidades, consideramos quais dados precisamos monitorar e guardar para treinar nosso modelo de Machine Learning de predição de falhas mecânicas. 
+Chegamos a quatro principais entidades: Máquinas, Sensores, Leitura do Sensor e Falha.
+Na entidade Máquina armazenaremos o nome, modelo, qualidade atual e status. Qualidade se refere a condição da máquina, que pode variar entre: Ruim, média ou boa. Status se refere se a máquina está ativa, em manutenção o desativada.
+
+Na entidade Sensores armazenaremos o tipo de sensor, a unidade medida pelo sensor, e dois valores de limites máximos e minímo, para ajudar a determinar e identificar anomalias. Além de status.
+
+Na entidade Leitura do Sensor deve ser armazenado o valor captado, data e hora de captação.
+
+Na entidade Falha será guardado a descrição da falha captada, nível de severidade, data registrada da ocorrência e status da falha, deve variar entre em aberto, em análise ou resolvido.
+
+Com essas entidades e atributos podemos maximizar a captura de dados relevantes e uteis para identificar as falhas, suas causas e correlações. E também monitorar e classificar a qualidade dos equipamentos. Permitindo uma análise mais profunda e até mesmo a implementação de modelos de inteligência artificial para contribuir com a predição de manutenção.
+
+### Diagrama Entidade-Relacionamento inicial;
+<p align="center">
+<img src="/assets/Reply3.png" alt="Sensores"></a>
+</p>
+
 
 ## Entidades
 
@@ -173,14 +175,15 @@ Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER).
   Uma máquina pode apresentar várias falhas, mas cada falha pertence a uma máquina específica.  
 
 - **Sensor (0..1) — (N) Falha**  
-  Uma falha pode estar associada a um sensor (ex.: superaquecimento detectado por sensor de temperatura),  
-  mas também pode estar ligada à máquina em geral (ex.: falha elétrica global).  
+  Uma falha pode estar associada a um sensor (ex: superaquecimento detectado por sensor de temperatura),  
+  mas também pode estar ligada à máquina em geral (ex: falha elétrica).  
 
 <p align="center">
 <img src="/assets/Reply3.png" alt="Sensores"></a>
 </p>
 
 
+# <a name="c3"></a>3. Machine Learning
 
 # <a name="c4"></a>4. Diagrama
 Abaixo nossa solução proposta
