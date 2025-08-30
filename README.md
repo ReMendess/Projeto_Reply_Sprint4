@@ -30,11 +30,6 @@ Documentar o código, os dados usados e as análises obtidas, trazer prints dos 
 
 4)   REQUISITOS TÉCNICOS E FUNCIONAIS
 
-Banco de Dados:
-
-
-Previsão de integração futura com ferramentas de visualização de dados. 
-
 ML Básico:
 
 Código Python (Jupyter ou .py) mostrando o processo de treino do modelo;
@@ -179,11 +174,12 @@ Com essas entidades e atributos podemos maximizar a captura de dados relevantes 
   mas também pode estar ligada à máquina em geral (ex: falha elétrica).  
 
 ### Diagrama Entidade-Relacionamento Final
-Criado dentro do Oracle Database
+Criado dentro do Oracle Database.
 <p align="center">
 <img src="/assets/DER_Reply3.png"></a>
 </p>
 
+Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferramentas como Streamlit ou semelhantes para gerar uma visualização profunda e datalhada dos dados.
 
 # <a name="c3"></a>3. Machine Learning
 
