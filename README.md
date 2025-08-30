@@ -108,62 +108,76 @@ Vídeo de até 5 minutos explicando e justificando, com áudio (sem música de f
 Continuando com o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
 Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/Enterprise_ChallengeSprint_1_Reply
 
-# <a name="c2"></a>2. Sensores - Wokwi
+# <a name="c2"></a>2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)
 
-Nessa segunda etapa, criamos um circuito virtual com ESP32. Simulamos e habilitamos os sensores, utilizando o Wokwi. Habilitamos o funcionamento com um código em c (codigo_wokwi_leitura.c).
+Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER). 
 
-ESP32 - placa de centro de controle.
-DHT22 - sensor de temperatura e umidade.
-MPU6050 - sensor acelerômetro e giroscópio.
-Potenciômetro - simulando sensor de corrente.
+## Entidades
 
-Sensor	Pino / Interface	Mede o quê	Tipo
-DHT22	Pino 26 (digital)	Temperatura e umidade	Sensor digital ambiental
-MPU6050	I2C (SDA 22, SCL 23)	Aceleração (vibração) e rotação	Acelerômetro / giroscópio
-Potenciômetro	Pino 33 (analógico)	Corrente simulada (0 a 30 A)	Simulad
+### **Maquinas**
+**Atributos:**
+- `id_maquina` (PK) → Identificador único  
+- `nome_maquina` → Nome ou código interno
+- `qualidade_maquina` → (Ruim, Média, Boa) 
+- `modelo` → Modelo da máquina   
+- `status_maquina` → (Ativa, Em manutenção, Desativada)  
 
+---
 
-  | Sensor        | Pino / Interface |      Medição               |
-  |-----------    |------------------|----------------------      |
-  |DHT22          |Pino 26           | Temperatura e umidade      | 
-  |MPU6050        |PI2C              | Vibração e rotação         |
-  |Potenciômetro  |Pino 33           |Corrente simulada 0 a 30 A  |
+### **Sensores**
+**Atributos:**
+- `id_sensor` (PK)  
+- `tipo_sensor` → (Temperatura, Vibração, Pressão, Corrente elétrica etc.)
+- `unidade_medida` → (°C, Hz, Bar, A)  
+- `status_sensor` → (Ativo, Em manutenção, Desativado)
+- `limite_minimo` → Valor considerado normal mínimo  
+- `limite_maximo` → Valor considerado normal máximo  
+- `id_maquina` (FK) → Relaciona o sensor à máquina  
 
+---
+
+### **Leitura_Sensor**
+(para armazenar os dados coletados continuamente)  
+
+**Atributos:**
+- `id_leitura` (PK)  
+- `data_leitura` → Data e hora da leitura  
+- `valor` → Medição captada pelo sensor
+- `id_sensor` (FK)  
+
+---
+
+### **Falha**
+(registra os problemas ou alertas detectados em uma máquina)  
+
+**Atributos:**
+- `id_falha` (PK)
+- `descricao` → Descrição da falha 
+- `nivel_severidade` → (Baixo, Médio, Alto, Crítico)  
+- `data_ocorrencia`  
+- `status_falha` → (Aberta, Em análise, Resolvida)
+- `id_maquina` (FK)  
+- `id_sensor` (FK) 
+
+---
+
+## 2. Relações e Cardinalidades
+
+- **Máquina (1) — (N) Sensor**  
+  Uma máquina pode ter vários sensores, mas cada sensor pertence a uma única máquina.  
+
+- **Sensor (1) — (N) Leitura_Sensor**  
+  Um sensor gera muitas leituras ao longo do tempo, mas cada leitura pertence a apenas um sensor.  
+
+- **Máquina (1) — (N) Falha**  
+  Uma máquina pode apresentar várias falhas, mas cada falha pertence a uma máquina específica.  
+
+- **Sensor (0..1) — (N) Falha**  
+  Uma falha pode estar associada a um sensor (ex.: superaquecimento detectado por sensor de temperatura),  
+  mas também pode estar ligada à máquina em geral (ex.: falha elétrica global).  
 
 <p align="center">
-<img src="/Sprint_2/simulacao_circuito.png" alt="Sensores"></a>
-</p>
-
-
-Utilizamos um Monitor Serial para acompanhar em tempo real as medições
-
-<p align="center">
-<img src="/Sprint_2/monitor_serial.png" alt="Sensores"></a>
-</p>
-
-
-
-# <a name="c3"></a>3. Análise Exploratória
-
-Simulamos os dados captados para realizar uma análise exploratória. E juntamento com Streamlit, criamos uma interface que possibilita separar o número de amostrar, realizar uma análise estastístia e cria três gráficos: Dispesão, Histograma e um Boxplot.
-Acesse a aplicação pelo link: https://projetoreply-gc6q63kp35czpwwwfc2std.streamlit.app/
-Arquivo de código (dados_e_analise.py).
-
-<p align="center">
-<img src="/assets/streamlit.png" alt="Sensores"></a>
-</p>
-
-<p align="center">
-<img src="/assets/streamlit2.png" alt="Sensores"></a>
-</p>
-
-<p align="center">
-<img src="/assets/streamlit3.png" alt="Sensores"></a>
-</p>
-
-
-<p align="center">
-<img src="/assets/streamlit4.png" alt="Sensores"></a>
+<img src="/assets/Reply3png" alt="Sensores"></a>
 </p>
 
 
