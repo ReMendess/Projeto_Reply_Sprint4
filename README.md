@@ -177,7 +177,7 @@ Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER).
   mas também pode estar ligada à máquina em geral (ex.: falha elétrica global).  
 
 <p align="center">
-<img src="/assets/Reply3png" alt="Sensores"></a>
+<img src="/assets/Reply3.png" alt="Sensores"></a>
 </p>
 
 
