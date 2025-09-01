@@ -204,7 +204,7 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 ### Random Forest Classifier
 
-No Geral o Modelo de Random Forest apresentou um baixo desempenho com o dataset, no qual apresenta resultados "enganosos" pois mesmo com a precisão bastante alta do modelo, apresenta dificuldade de intepretar falhas nas máquinas. Essa interpretação fica mais clara ao fazer análise da matriz de confusão.
+No Geral o Modelo de Random Forest apresentou um baixo desempenho com o dataset, no qual apresenta resultados "enganosos" pois mesmo com a precisão bastante alta do modelo, apresenta dificuldade de intepretar falhas nas máquinas.
 
 Recall: **52% sinaliza que o modelo está tendo dificuldade em detectar as máquinas que apresentam falhas.
 
