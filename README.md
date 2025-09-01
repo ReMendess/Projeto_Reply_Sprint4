@@ -195,7 +195,29 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 ## Treinamento e Seleção dos Modelos
 
+- Diante do problema proposto "Predição de Manutenção", utilizamos um algoritmo de Classificação pois se trata de dados rótulados.
 
+- Verificamos alguns outliers, e removemos os mesmos.
+
+- Dividimos os dados em 70% treino e 30% teste, para aplicar os modelos de Classificação.
+
+
+### Random Forest Classifier
+
+No Geral o Modelo de Random Forest apresentou um baixo desempenho com o dataset, no qual apresenta resultados "enganosos" pois mesmo com a precisão bastante alta do modelo, apresenta dificuldade de intepretar falhas nas máquinas. Essa interpretação fica mais clara ao fazer análise da matriz de confusão.
+
+Recall: **52% sinaliza que o modelo está tendo dificuldade em detectar as máquinas que apresentam falhas.
+
+F1-Score: 63% Uma métrica que combina a precisão do modelo, juntamente com o Recall. Nesse caso a precisão não indica tanta importancia, pois queremos detectar o caso em que as máquinas falham, que no caso são apenas 3.4 % das vezes.
+
+### Gradient Boost
+
+ O modelo **Gradient Boost se mostrou muito mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
+
+ Recall: **77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
+
+F1-Score :** 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
+ 
 # <a name="c4"></a>4. Diagrama
 Abaixo nossa solução proposta
 
