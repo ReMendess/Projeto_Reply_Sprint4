@@ -183,6 +183,19 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 # <a name="c3"></a>3. Machine Learning
 
+## Tratamento dos dados
+
+- Inicialmente, foi necessário fazer um tratamento nas colunas do data-set, que estavam em ingles.
+
+- Verificamos se haviam dados nulos, e quais os tipos de dados presentes no DataSet.
+
+- Aplicamos o tratamento de Features, Removendo algumas colunas que seriam "inúteis" para o treinamento do modelo como "Id Produto", "Id Único".
+
+- Detectamos alguns dados categóricos e passamos todos para a escala númerica.
+
+## Treinamento e Seleção dos Modelos
+
+
 # <a name="c4"></a>4. Diagrama
 Abaixo nossa solução proposta
 
