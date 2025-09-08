@@ -129,8 +129,11 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 # <a name="c3"></a>3. Machine Learning
 
-Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais, com as seguintes features:
+Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais. Utilizamos esse dataset para treinar os modelos de machine learning, com o objetivo de criar modelos de predição de risco de falha de máquinas industriais.
 
+Link do dataset: https://www.kaggle.com/datasets/shivamb/machine-predictive-maintenance-classification
+
+### Features
 ID Unico: identificador único variando de 1 a 10000.
 ID Produto: Composto por: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina e mais um número de série específico.
 Tipo: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina.
