@@ -14,10 +14,7 @@
 - Renan de Oliveira Mendes -> RM563145
 
 
-# Faltam
-
-Link do vídeo, arquivo de base de dados e os prints dos resultados obtidos com o modelo e os graficos gerados;
-
+### Link do vídeo: https://youtu.be/FiJrwkl0I2Q
 
 ## Sumário
 
@@ -132,11 +129,36 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 # <a name="c3"></a>3. Machine Learning
 
+Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais, com as seguintes features:
+
+ID Unico: identificador único variando de 1 a 10000.
+ID Produto: Composto por: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina e mais um número de série específico.
+Tipo: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina.
+Temperatura do ar [K].
+Temperatura do processo [K].
+Velocidade de rotação [rpm].
+Torque [Nm].
+Desgaste ferramenta [min].
+Falhou: Binário de falhou ou não.
+Tipo de falha.
+
+<p align="center">
+<img src="/assets/ML.png"></a>
+</p>
+
 ## Tratamento dos dados
 
 - Inicialmente, foi necessário fazer um tratamento nas colunas do data-set, que estavam em ingles.
 
+<p align="center">
+<img src="/assets/ML2.png"></a>
+</p>
+
 - Verificamos se haviam dados nulos, e quais os tipos de dados presentes no DataSet.
+
+<p align="center">
+<img src="/assets/ML3.png"></a>
+</p>
 
 - Aplicamos o tratamento de Features, Removendo algumas colunas que seriam "inúteis" para o treinamento do modelo como "Id Produto", "Id Único".
 
@@ -148,8 +170,16 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 
 - Verificamos alguns outliers, e removemos os mesmos.
 
+<p align="center">
+<img src="/assets/ML4.png"></a>
+</p>
+
+
 - Dividimos os dados em 70% treino e 30% teste, para aplicar os modelos de Classificação.
 
+<p align="center">
+<img src="/assets/ML5.png"></a>
+</p>
 
 ### Random Forest Classifier
 
@@ -159,6 +189,10 @@ Recall: **52% sinaliza que o modelo está tendo dificuldade em detectar as máqu
 
 F1-Score: 63% Uma métrica que combina a precisão do modelo, juntamente com o Recall. Nesse caso a precisão não indica tanta importancia, pois queremos detectar o caso em que as máquinas falham, que no caso são apenas 3.4 % das vezes.
 
+<p align="center">
+<img src="/assets/ML6.png"></a>
+</p>
+
 ### Gradient Boost
 
  O modelo **Gradient Boost se mostrou muito mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
@@ -166,7 +200,11 @@ F1-Score: 63% Uma métrica que combina a precisão do modelo, juntamente com o R
  Recall: **77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
 
 F1-Score :** 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
- 
+
+<p align="center">
+<img src="/assets/ML7.png"></a>
+</p>
+
 # <a name="c4"></a>4. Diagrama
 Abaixo nossa solução proposta
 
