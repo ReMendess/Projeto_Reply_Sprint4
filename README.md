@@ -35,7 +35,9 @@ Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/
 
 # <a name="c2"></a>2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)
 
-Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER). 
+Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER).
+
+Arquivo: scriptSQL.sql
 
 Primeiro realizamos uma modelagem em uma ferramenta básica, com a intenção de identificar as principais entidades. Para definir as entidades, consideramos quais dados precisamos monitorar e guardar para treinar nosso modelo de Machine Learning de predição de falhas mecânicas. 
 Chegamos a quatro principais entidades: Máquinas, Sensores, Leitura do Sensor e Falha.
@@ -132,18 +134,28 @@ Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferrame
 Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais. Utilizamos esse dataset para treinar os modelos de machine learning, com o objetivo de criar modelos de predição de risco de falha de máquinas industriais.
 
 Link do dataset: https://www.kaggle.com/datasets/shivamb/machine-predictive-maintenance-classification
+Arquivo Notebook Python: Reply (4).ipynb
 
 ### Features
-ID Unico: identificador único variando de 1 a 10000.
-ID Produto: Composto por: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina e mais um número de série específico.
-Tipo: L (baixa), M (média) ou H (alta) como variantes de qualidade da máquina.
-Temperatura do ar [K].
-Temperatura do processo [K].
-Velocidade de rotação [rpm].
-Torque [Nm].
-Desgaste ferramenta [min].
-Falhou: Binário de falhou ou não.
-Tipo de falha.
+ID Único → Identificador numérico único de cada registro no dataset.
+
+ID Produto → Código ou identificador da máquina.
+
+Tipo → Categoria ou classe da máquina ou do processo em execução.
+
+Temperatura do ar [K] → Medição da temperatura ambiente ao redor da máquina, registrada em Kelvin.
+
+Temperatura do processo [K] → Medição da temperatura interna do processo produtivo, em Kelvin.
+
+Velocidade de rotação [rpm] → Rotação do eixo da máquina em rotações por minuto (rpm).
+
+Torque [Nm] → Força de torção aplicada pelo eixo da máquina, medida em Newton-metro (Nm).
+
+Desgaste ferramenta [min] → Tempo acumulado de uso da ferramenta de corte, indicado em minutos.
+
+Falhou → Indicador binário (sim/não) que informa se ocorreu falha na máquina/processo.
+
+Tipo de falha → Descrição da falha ocorrida.
 
 <p align="center">
 <img src="/assets/ML.png"></a>
