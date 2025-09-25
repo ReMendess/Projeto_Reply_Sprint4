@@ -1,0 +1,16 @@
+streamlit
+streamlit-folium
+folium
+pandas
+numpy
+scikit-learn
+joblib
+uvicorn[standard]
+fastapi
+requests
+python-dotenv
+plotly
+matplotlib
+plotly-express
+pydantic
+twilio
