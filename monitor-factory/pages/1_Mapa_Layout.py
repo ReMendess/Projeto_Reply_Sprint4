@@ -1,23 +1,67 @@
 import streamlit as st
-from streamlit_folium import st_folium
-import folium
+from streamlit_image_coordinates import streamlit_image_coordinates
 
-st.title("Mapa / Layout da Fábrica")
+st.title(" Fábrica Interativa - ")
 
-# coordenadas exemplo
-coords = {
-    "Máquina A": (-23.560, -46.656),
-    "Máquina B": (-23.5605, -46.6565),
-}
+# Inicializa lista de máquinas
+if "maquinas" not in st.session_state:
+    st.session_state.maquinas = []
 
-m = folium.Map(location=[-23.560, -46.656], zoom_start=18)
+# Tipos de máquinas disponíveis
+tipos_maquina = ["Máquina de Corte", "Prensa", "Esteira", "Empilhadeira", "Armazém"]
+qualidade_maquinas = ["Baixa", "Media", "Alta"]
+mapa_qualidade = {"Baixa": "L", "Media": "M", "Alta": "H"}
 
-for name, (lat, lon) in coords.items():
-    popup_html = f"<b>{name}</b><br>Sensor: Temperatura, Vibração<br><button onclick=\"window.postMessage({{'machine':'{name}'}}, '*')\">Selecionar</button>"
-    folium.Marker([lat, lon], popup=folium.Popup(popup_html, max_width=250)).add_to(m)
+# Exibe a planta redimensionada e captura clique
+coords = streamlit_image_coordinates("industria.png", width=500)
 
-st_folium(m, width=700, height=500)
+# Se clicou, abre formulário para cadastrar máquina
+if coords is not None:
+    with st.form("cadastro_maquina", clear_on_submit=True):
+        tipo = st.selectbox("Tipo de Máquina", tipos_maquina)
+        qualidade = st.selectbox("Qualidade de Maquina", qualidade_maquinas)
+        Id_Maquina = st.text_input("Código ou identificador da máquina.")
 
-# Captura seleção via st.session_state ou via callback JS (complexo) — alternativa: clicar e selecionar na lista
-selected = st.selectbox("Selecione máquina", list(coords.keys()))
-st.markdown("**Descrição:** Máquina selecionada: " + selected)
+        temperaturaAr = st.slider("Temperatura do Ar [K]", 250, 400, (290, 350))
+        temperaturaProcesso = st.slider("Temperatura do processo [K]", 250, 400, (290, 350))
+
+        velocidadeRotacao = st.number_input("Velocidade de rotação [rpm]", value=1300, min_value=500, max_value=10000)
+        torque = st.number_input("Torque [Nm]", value=50, min_value=10, max_value=500)
+        desgasteMaq = st.number_input("Desgaste ferramenta [min]", value=3, min_value=1, max_value=60)
+
+        submit = st.form_submit_button("Adicionar Máquina")
+
+        if submit:
+            st.session_state.maquinas.append({
+                "Identificador": Id_Maquina,
+                "tipo": tipo,
+                "Qualidade": mapa_qualidade[qualidade],  # já mapeia para L/M/H
+                "x": coords["x"],
+                "y": coords["y"],
+                "temperaturaAr": sum(temperaturaAr) / 2,  # salva média
+                "temperaturaProcesso": sum(temperaturaProcesso) / 2,
+                "rotacao": velocidadeRotacao,
+                "torque": torque,
+                "desgaste": desgasteMaq,
+            })
+            st.success(f" {tipo} ({Id_Maquina}) adicionada!")
+
+# Lista de máquinas já criadas
+st.subheader(" Máquinas Registradas")
+
+if not st.session_state.maquinas:
+    st.info("Nenhuma máquina cadastrada ainda. Clique na planta para adicionar.")
+else:
+    for m in st.session_state.maquinas:
+        titulo = f"{m['tipo']} - ({m['Identificador']})"
+        with st.expander(titulo):
+            col1, col2 = st.columns(2)
+            with col1:
+                st.markdown(f"**Posição:** x={m['x']}, y={m['y']}")
+                st.markdown(f"**Temp. Ar:** {m['temperaturaAr']:.1f} K")
+                st.markdown(f"**Temp. Processo:** {m['temperaturaProcesso']:.1f} K")
+            with col2:
+                st.markdown(f"**Rotação:** {m['rotacao']} rpm")
+                st.markdown(f"**Torque:** {m['torque']} Nm")
+                st.markdown(f"**Desgaste:** {m['desgaste']} min")
+                st.markdown(f"**Qualidade:** {m['Qualidade']}")
