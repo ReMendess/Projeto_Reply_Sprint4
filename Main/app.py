@@ -33,19 +33,20 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, roc_auc_score
 import joblib
 
-# Tenta usar oracledb, caso contrário fallback para sqlite
-USE_ORACLE = False
-try:
-    import oracledb
-    USE_ORACLE = True
-except Exception:
-    USE_ORACLE = False
-    import sqlite3
+import os
+import sqlite3
+import streamlit as st
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+import joblib
 
-MODEL_PATH = "./sensor_failure_model.joblib"
-DB_FALLBACK_SQLITE = "./sensor_data_local.db"
+# Configurar conexão: SQLite sempre disponível no Streamlit Cloud
+DB_FILE = "sensor_data_local.db"
 
-st.set_page_config(page_title="Monitoramento Industrial - Fim a Fim", layout="wide")
+def get_connection():
+    conn = sqlite3.connect(DB_FILE, check_same_thread=False)
+    return conn
+
 
 # ---------------------- Helpers de DB ----------------------
 @st.cache_resource
