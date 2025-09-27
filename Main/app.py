@@ -75,6 +75,11 @@ def ensure_tables(conn):
     """)
     conn.commit()
 
+def clear_readings(conn):
+    cur = conn.cursor()
+    cur.execute("DELETE FROM Leitura_Sensor")
+    conn.commit()
+
 def insert_machine(conn, nome, qualidade='Boa', modelo=None):
     cur = conn.cursor()
     cur.execute("INSERT INTO Maquinas (nome_maquina, qualidade_maquina, modelo) VALUES (?,?,?)",
@@ -203,6 +208,10 @@ else:
 latest = fetch_latest_readings(conn, limit=20)
 st.subheader("Últimas leituras")
 st.dataframe(latest)
+
+if st.button("🗑️ Limpar todas as leituras"):
+    clear_readings(conn)
+    st.success("Todas as leituras foram removidas.")
 
 # --- Treinamento ---
 st.header("🤖 Treinamento do Modelo")
