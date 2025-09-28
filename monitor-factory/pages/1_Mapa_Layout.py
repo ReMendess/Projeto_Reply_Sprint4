@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 
 st.set_page_config(layout="centered")
-st.title(" Fábrica Interativa — ")
+st.title("Monitoramento da Fábrica")
 
 IMG_PATH = "./assets/maquinas.png"
 
@@ -40,29 +40,28 @@ def criar_dados_tratados(n_samples=5000, seed=42):
     })
     return df
 
-# --------- Máquinas pré-cadastradas ---------
+# máquinas cadastradas
 maquinas = {
     "M1": {"nome": "Torno CNC", "setor": "Usinagem", "id_produto": "M00001", "tipo": "Alta"},
     "M2": {"nome": "Prensa Hidráulica", "setor": "Montagem", "id_produto": "P00001", "tipo": "Média"},
     "M3": {"nome": "Esteira Transportadora", "setor": "Transporte", "id_produto": "E00001", "tipo": "Baixa"},
 }
 
-# --------- Menu lateral ---------
+# Menu Lateral
 sel = st.sidebar.radio("Selecione a máquina:", list(maquinas.keys()))
 n_dados = st.sidebar.slider("Quantos dados deseja gerar?", min_value=10, max_value=1000, value=200, step=10)
 
 info = maquinas[sel]
 
-# --------- Mostrar planta ---------
 planta = Image.open(IMG_PATH).resize((800, 600))
 st.image(planta, caption="Layout da Fábrica", use_container_width=False)
 
-# --------- Info da máquina ---------
-st.subheader(f"📌 {info['nome']} ({sel})")
+#informações máquinas
+st.subheader(f"{info['nome']} ({sel})")
 st.write(f"**Setor:** {info['setor']}")
 st.write(f"**Qualidade (Tipo):** {info['tipo']}")
 
-# --------- Gerar dataset ---------
+#gerar dataset
 dados = criar_dados_tratados(n_samples=n_dados, seed=int(sel[-1]))
 
 # Sobrescrevendo as colunas fixas
