@@ -1,0 +1,23 @@
+import streamlit as st
+
+st.set_page_config(page_title="Feedback WhatsApp", layout="centered")
+
+st.title("📩 Endpoint de Feedback (WhatsApp)")
+
+# Twilio manda os dados via POST → Streamlit pode acessar pelo query params (GET) ou pelo body se usar st.experimental_get_query_params
+params = st.experimental_get_query_params()
+
+if params:
+    st.write("📥 Dados recebidos do Twilio:")
+    st.json(params)
+    
+    # Simulação de salvar feedback
+    if "Body" in params:
+        st.session_state["feedbacks"] = st.session_state.get("feedbacks", [])
+        st.session_state["feedbacks"].append({
+            "from": params.get("From", ["desconhecido"])[0],
+            "msg": params["Body"][0]
+        })
+        st.success("✅ Feedback registrado!")
+else:
+    st.info("Aguardando feedback do Twilio...")
