@@ -230,10 +230,27 @@ Tipo de falha → Descrição da falha ocorrida.
 
 O modelo Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
 
- Recall: 77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
+ Recall: 77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 77. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
 
-F1-Score: 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
+F1-Score: 67%, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
 
 
 # <a name="c5"></a>5. Alerta via Whatsapp e Dashboards
 
+Criamos uma interface simulando a parte final de nossa solução. 
+Link: https://projetoreplysprint4-yiovxkgmfcu6dal4np9f5b.streamlit.app
+
+Nessa aplicação podemos simular o monitoramento das máquinas e sensores.
+Onde podemos ver os últimos registros.
+
+Simultanemente temos o modelo de Gradient Boost treinado anteriormente rodando em cima dos dados e prevendo riscos de falhas.
+
+Também desenvolvemos uma aplicação que ao cadastrar o número de celular, o modelo ao prever risco de falha, envia uma mensagem de aviso via Whatsapp para o número cadastrado.
+
+<p align="center">
+<img src="/assets/reply_monitoramento.png"></a>
+</p>
+
+<p align="center">
+<img src="/assets/reply_monitoramento2.png"></a>
+</p>
