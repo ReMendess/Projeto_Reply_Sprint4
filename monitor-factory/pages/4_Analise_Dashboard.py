@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-st.title("Dashboards Interativos de Leituras de Sensores")
+st.title("Dashboards de Leituras de Sensores")
 
 # ==============================
 # Dados
