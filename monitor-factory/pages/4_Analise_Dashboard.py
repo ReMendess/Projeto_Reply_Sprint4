@@ -79,12 +79,3 @@ if sensor_selec:
             ))
     st.plotly_chart(fig_sensores, use_container_width=True)
 
-# ==============================
-# Dashboard 4: Heatmap de Correlação
-# ==============================
-st.subheader("Heatmap de Correlação entre Sensores")
-corr_cols = [col for col in sensores if col in df_filtrado.columns]
-if corr_cols:
-    corr = df_filtrado[corr_cols].corr()
-    fig_corr = px.imshow(corr, text_auto=True, aspect="auto", color_continuous_scale="RdBu_r", origin="lower")
-    st.plotly_chart(fig_corr, use_container_width=True)
