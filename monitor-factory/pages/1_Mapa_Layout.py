@@ -6,7 +6,7 @@ from PIL import Image
 st.set_page_config(layout="centered")
 st.title(" Fábrica Interativa — ")
 
-IMG_PATH = "maquinas.png"
+IMG_PATH = "./assets/maquinas.png"
 
 # --------- Função original ---------
 def criar_dados_tratados(n_samples=5000, seed=42):
