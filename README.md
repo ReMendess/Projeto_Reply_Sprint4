@@ -14,26 +14,38 @@
 - Renan de Oliveira Mendes -> RM563145
 
 
-### Link do vídeo: https://youtu.be/FiJrwkl0I2Q
+### Link do vídeo: h
 
 ## Sumário
 
-[1. Solução e Planejamento](#c1)
+[1. Solução](#c1)
 
-[2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)](#c2)
+[2. Sensores - ESP32](#c2)
 
-[3. Machine Learning](#c3)
+[3. Ingestão e Armazenamento](#c3)
 
-[4. Diagrama](#c4)
+[4. Machine Learning e Alertas](#c4)
+
+[5. Dashboards e Relatórios ](#c5)
 
 <br>
 
-# <a name="c1"></a>1. Solução e Planejamento
+# <a name="c1"></a>1. Solução
 
 Continuando com o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
 Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/Enterprise_ChallengeSprint_1_Reply
 
-# <a name="c2"></a>2. Banco de Dados - Diagrama Entidade-Relacionamento (DER)
+Abaixo nossa solução proposta
+
+<p align="center">
+<img src="diagrama.drawio" alt="Driagrama da solução"></a>
+</p>
+
+
+# <a name="c2"></a>2. Sensores - ESP32
+
+
+# <a name="c3"></a>3. Ingestão e Armazenamento
 
 Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER).
 
@@ -129,7 +141,7 @@ Criado dentro do Oracle Database.
 
 Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferramentas como Streamlit ou semelhantes para gerar uma visualização profunda e datalhada dos dados.
 
-# <a name="c3"></a>3. Machine Learning
+# <a name="c4"></a>4. Machine Learning e Alertas
 
 Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais. Utilizamos esse dataset para treinar os modelos de machine learning, com o objetivo de criar modelos de predição de risco de falha de máquinas industriais.
 
@@ -220,10 +232,5 @@ F1-Score :** 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equ
 <img src="/assets/ML7.png"></a>
 </p>
 
-# <a name="c4"></a>4. Diagrama
-Abaixo nossa solução proposta
-
-<p align="center">
-<img src="diagrama.drawio" alt="Driagrama da solução"></a>
-</p>
+# <a name="c5"></a>5. Dashboards e Relatórios
 
