@@ -7,8 +7,8 @@ from twilio.rest import Client
 # ==============================
 # Configuração Twilio
 # ==============================
-ACCOUNT_SID = "SEU_ACCOUNT_SID"
-AUTH_TOKEN = "SEU_AUTH_TOKEN"
+ACCOUNT_SID = "AC60652cee4eaf2db95ab5755fb4123d38"
+AUTH_TOKEN = "056094a9219f238fe03702d1a2858340"
 FROM_NUMBER = "whatsapp:+14155238886"  # Número padrão do sandbox WhatsApp Twilio
 
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
