@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 
 st.set_page_config(layout="centered")
-st.title(" Fábrica Interativa — ")
+st.title(" Fábrica Interativa — ", layout = "centered")
 
 IMG_PATH = "./assets/maquinas.png"
 
