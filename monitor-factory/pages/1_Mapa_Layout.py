@@ -54,7 +54,7 @@ n_dados = st.sidebar.slider("Quantos dados deseja gerar?", min_value=10, max_val
 info = maquinas[sel]
 
 # --------- Mostrar planta ---------
-planta = Image.open(IMG_PATH).resize((650, 410))
+planta = Image.open(IMG_PATH).resize((800, 600))
 st.image(planta, caption="Layout da Fábrica", use_container_width=False)
 
 # --------- Info da máquina ---------
