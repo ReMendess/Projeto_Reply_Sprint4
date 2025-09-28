@@ -43,6 +43,36 @@ Abaixo o diagrama de nossa solução:
 
 # <a name="c2"></a>2. Sensores - ESP32
 
+Criamos um circuito virtual com ESP32. Simulamos e habilitamos os sensores, utilizando o Wokwi. Habilitamos o funcionamento com um código em C (codigo_wokwi_leitura.c).
+
+ESP32 - placa de centro de controle.
+DHT22 - sensor de temperatura e umidade.
+MPU6050 - sensor acelerômetro e giroscópio.
+Potenciômetro - simulando sensor de corrente.
+
+Sensor	Pino / Interface	Mede o quê	Tipo
+DHT22	Pino 26 (digital)	Temperatura e umidade	Sensor digital ambiental
+MPU6050	I2C (SDA 22, SCL 23)	Aceleração (vibração) e rotação	Acelerômetro / giroscópio
+Potenciômetro	Pino 33 (analógico)	Corrente simulada (0 a 30 A)	Simulad
+
+
+  | Sensor        | Pino / Interface |      Medição               |
+  |-----------    |------------------|----------------------      |
+  |DHT22          |Pino 26           | Temperatura e umidade      | 
+  |MPU6050        |PI2C              | Vibração e rotação         |
+  |Potenciômetro  |Pino 33           |Corrente simulada 0 a 30 A  |
+
+
+<p align="center">
+<img src="/assets/simulacao_circuito.png" alt="Sensores"></a>
+</p>
+
+
+Utilizamos um Monitor Serial para acompanhar em tempo real as medições
+
+<p align="center">
+<img src="/assets/monitor_serial.png" alt="Sensores"></a>
+</p>
 
 # <a name="c3"></a>3. Ingestão e Armazenamento
 
