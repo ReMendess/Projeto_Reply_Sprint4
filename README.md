@@ -228,11 +228,11 @@ Tipo de falha → Descrição da falha ocorrida.
 
 ### Gradient Boost
 
-O modelo **Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
+O modelo Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
 
- Recall: **77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
+ Recall: 77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
 
-F1-Score :** 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
+F1-Score: 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
 
 
 # <a name="c5"></a>5. Dashboards e Relatórios
