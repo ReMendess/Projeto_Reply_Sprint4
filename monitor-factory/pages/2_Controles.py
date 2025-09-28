@@ -5,7 +5,7 @@ from sklearn.preprocessing import OrdinalEncoder
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
 import os
-st.title(" Simulação de Controles em Tempo Real (30s)")
+st.title("Controle das Máquinas")
 
 #intervalo
 INTERVALO_MS = 5_000  # 30 segundos
