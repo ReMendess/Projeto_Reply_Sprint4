@@ -77,4 +77,4 @@ csv = dados.to_csv(index=False).encode("utf-8")
 st.download_button("⬇️ Baixar CSV", data=csv, file_name=f"{sel}_sensores.csv", mime="text/csv")
 
 st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
-                     "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50), index = 'Segundos')
+                     "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50),)
