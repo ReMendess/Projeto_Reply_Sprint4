@@ -94,6 +94,6 @@ if start:
         st.write(f" Risco identificado: **{risco}**")
 
         if risco == "Alto" and numero_whats:
-            enviar_whatsapp(numero_whats, f"🚨 Alerta: Alto risco de falha detectado!\n{leitura.to_dict(orient='records')[0]}")
+            enviar_whatsapp(numero_whats, f"🚨 Alerta: Alto risco de falha detectado!")
 
         time.sleep(20)  # simula a cada 20s
