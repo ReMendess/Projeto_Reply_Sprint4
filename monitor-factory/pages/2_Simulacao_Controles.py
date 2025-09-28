@@ -24,7 +24,7 @@ with cols_top[0]:
         st.rerun()
 
 # Carregar modelo treinado
-modelo = joblib.load("modelo.pkl")
+modelo = joblib.load("modelo_gb.pkl")
 
 # Upload do CSV
 uploaded = st.file_uploader(" Anexe o CSV de sensores", type="csv")
