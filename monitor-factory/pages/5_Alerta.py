@@ -60,19 +60,19 @@ def enviar_whatsapp(numero, mensagem):
             body=mensagem,
             to=f"whatsapp:{numero}"
         )
-        st.success(f"✅ Mensagem enviada! SID: {message.sid}")
+        st.success(f"Mensagem enviada ao Operador! SID: {message.sid}")
     except Exception as e:
-        st.error(f"❌ Erro ao enviar mensagem: {e}")
+        st.error(f" Erro ao enviar mensagem: {e}")
 
 # ==============================
 # Interface Streamlit
 # ==============================
 st.title("📡 Monitoramento de Sensores - Predição de Falha")
 
-numero_whats = st.text_input("📱 Insira o número do WhatsApp (com DDI, ex: 5511999999999)")
+numero_whats = st.text_input("Insira o número do WhatsApp (com DDI, ex: 5511999999999)")
 
-st.sidebar.header("⚙️ Manipular sensores")
-forcar_falha = st.sidebar.checkbox("🔧 Forçar falha")
+st.sidebar.header("Manipular sensores")
+forcar_falha = st.sidebar.checkbox("Forçar falha")
 temp_proc_forcado = st.sidebar.slider("Temperatura do processo [K]", 300, 400, 320)
 desgaste_forcado = st.sidebar.slider("Desgaste ferramenta [min]", 0, 250, 100)
 
@@ -91,7 +91,7 @@ if start:
         risco = modelo_predicao(leitura)
 
         placeholder.write(leitura)
-        st.write(f"🔎 Risco identificado: **{risco}**")
+        st.write(f" Risco identificado: **{risco}**")
 
         if risco == "Alto" and numero_whats:
             enviar_whatsapp(numero_whats, f"🚨 Alerta: Alto risco de falha detectado!\n{leitura.to_dict(orient='records')[0]}")
