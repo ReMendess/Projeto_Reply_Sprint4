@@ -7,10 +7,9 @@ from streamlit_autorefresh import st_autorefresh
 import os
 st.title(" Simulação de Controles em Tempo Real (30s)")
 
-# ===== Config =====
+#intervalo
 INTERVALO_MS = 5_000  # 30 segundos
 
-# ===== Estado =====
 if "idx" not in st.session_state:
     st.session_state.idx = 0
 if "hist" not in st.session_state:
@@ -19,7 +18,7 @@ if "hist" not in st.session_state:
 # Botão de reset
 cols_top = st.columns([1, 1, 3])
 with cols_top[0]:
-    if st.button("🔄 Reset simulação"):
+    if st.button("Reset simulação"):
         st.session_state.idx = 0
         st.session_state.hist = []
         st.rerun()
@@ -60,13 +59,13 @@ features = [
 
 # Proteção para índice além do fim
 if st.session_state.idx >= len(dados):
-    st.success("✅ Fim do arquivo — todas as leituras foram processadas.")
+    st.success("Fim do arquivo — todas as leituras foram processadas.")
     if st.session_state.hist:
         st.dataframe(pd.DataFrame(st.session_state.hist))
     st.stop()
 
 # ===== Tick (a cada 30s) =====
-# 🔥 Atualiza o app a cada 30s automaticamente
+# Atualiza o app a cada 30s automaticamente
 st_autorefresh(interval=INTERVALO_MS, key="tick_30s")
 
 # ===== Processa a próxima linha =====
