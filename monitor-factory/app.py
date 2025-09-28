@@ -1,10 +1,10 @@
 import streamlit as st
 
 
-st.set_page_config(page_title="Monitor Factory", layout="wide")
+st.set_page_config(page_title="Monitoramento em Tempo real", layout="wide")
 
 
-st.title("Monitor Factory - Painel")
+st.title("Painel")
 st.markdown("Use o menu lateral para navegar entre as páginas.")
 
 
