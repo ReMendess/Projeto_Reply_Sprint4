@@ -1,24 +1,95 @@
 import streamlit as st
-import numpy as np
+import joblib
 import pandas as pd
-import time
+from sklearn.preprocessing import OrdinalEncoder
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
-st.title("Simulação de Dados e Controles")
+st.title("⚙️ Simulação de Controles")
 
-# Controles
-rpm = st.slider("RPM", 500, 5000, 1500)
-temp_set = st.slider("Temperatura alvo (°C)", 20, 200, 85)
+# Carregar modelo treinado
+modelo = joblib.load("modelo.pkl")
 
-# Botões
-if st.button("Gerar amostra"):
-    # cria série simulada
-    t = np.arange(0,60)
-    vib = 0.1*np.sin(0.1*t) + (rpm/5000)*np.random.normal(0,1,len(t))
-    temp = temp_set + np.random.normal(0,1,len(t))
-    df = pd.DataFrame({"time":t, "rpm": rpm, "vibration": vib, "temperature": temp})
-    st.session_state["sim_data"] = df
-    st.success("Dados simulados gerados.")
-    
-if "sim_data" in st.session_state:
-    st.dataframe(st.session_state["sim_data"].tail(10))
-    st.line_chart(st.session_state["sim_data"].set_index("time")[["vibration","temperature"]])
+# Escolha da máquina (só para exibição)
+maq = st.sidebar.selectbox("Escolha a máquina", ["M1", "M2", "M3"])
+
+# Upload do CSV
+uploaded = st.file_uploader("📂 Anexe o CSV de sensores", type="csv")
+
+if uploaded is not None:
+    dados = pd.read_csv(uploaded)
+
+    st.subheader(" Dados originais (anexados)")
+    st.dataframe(dados.head(10))
+
+    st.write(" Aplicando Tratamento...")
+
+    # Mapear Tipo para L, M, H
+    mapa_tipo = {"Baixa": "L", "Média": "M", "Alta": "H"}
+    dados["Tipo"] = dados["Tipo"].map(mapa_tipo)
+
+    # Criar Tipo_Encoded
+    encoder = OrdinalEncoder(categories=[['L', 'M', 'H']])
+    dados["Tipo_Encoded"] = encoder.fit_transform(dados[["Tipo"]])
+    dados = dados.drop(["Tipo"], axis=1)
+
+    # Features na ordem certa
+    features = [
+        "Temperatura do ar [K]",
+        "Temperatura do processo [K]",
+        "Velocidade de rotação [rpm]",
+        "Torque [Nm]",
+        "Desgaste ferramenta [min]",
+        "Tipo_Encoded"
+    ]
+    X = dados[features]
+    Y = dados["Falhou"]
+
+    # Predição
+    y_pred = modelo.predict(X)
+    y_proba = modelo.predict_proba(X)[:, 1]
+
+    # Resultado com predições
+    dados_resultado = dados.copy()
+    dados_resultado["Predição"] = y_pred
+    dados_resultado["Probabilidade Falha"] = y_proba.round(3)
+
+    st.subheader(" Resultado com Modelo")
+    st.dataframe(dados_resultado.head(20))
+
+    # --- Gráficos ---
+
+    # Contagem das predições
+    contagem = pd.Series(y_pred).value_counts().rename({0: "Normal", 1: "Falha"})
+    st.subheader(" Distribuição das Predições")
+    st.bar_chart(contagem)
+
+    # Histograma das probabilidades
+    st.subheader(" Distribuição das Probabilidades de Falha")
+    fig, ax = plt.subplots()
+    ax.hist(y_proba, bins=20, color="orange", edgecolor="black")
+    ax.set_xlabel("Probabilidade de Falha")
+    ax.set_ylabel("Número de Amostras")
+    st.pyplot(fig)
+
+    # Gauge com risco médio
+    risco_medio = y_proba.mean()
+    fig_gauge = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=risco_medio,
+        title={"text": "Risco Médio de Falha"},
+        gauge={
+            "axis": {"range": [0, 1]},
+            "bar": {"color": "red"},
+            "steps": [
+                {"range": [0, 0.3], "color": "lightgreen"},
+                {"range": [0.3, 0.7], "color": "yellow"},
+                {"range": [0.7, 1], "color": "red"}
+            ]
+        }
+    ))
+    st.subheader(" Indicador de Risco Médio")
+    st.plotly_chart(fig_gauge)
+
+else:
+    st.info("👉 Anexe um arquivo CSV de sensores para rodar a simulação.")
