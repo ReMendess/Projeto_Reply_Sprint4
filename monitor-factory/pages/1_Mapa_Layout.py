@@ -76,5 +76,6 @@ st.dataframe(dados.head(20), use_container_width=True)
 csv = dados.to_csv(index=False).encode("utf-8")
 st.download_button("⬇️ Baixar CSV", data=csv, file_name=f"{sel}_sensores.csv", mime="text/csv")
 
+dados.index.name = 'Minutos'
 st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
                      "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50),)
