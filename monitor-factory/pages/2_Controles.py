@@ -90,8 +90,8 @@ st.session_state.hist.append(registro)
 # ===== UI: Última leitura =====
 st.subheader(f" Última leitura (#{i+1}) — atualiza a cada 30s")
 colA, colB = st.columns([2, 1])
-with colA:
-    st.json(registro)
+#with colA:
+    #st.json(registro)
 with colB:
     fig_gauge = go.Figure(go.Indicator(
         mode="gauge+number",
