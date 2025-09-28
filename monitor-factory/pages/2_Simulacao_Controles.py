@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.preprocessing import OrdinalEncoder
 import plotly.graph_objects as go
 from streamlit_autorefresh import st_autorefresh
+import os
 st.title(" Simulação de Controles em Tempo Real (30s)")
 
 # ===== Config =====
@@ -23,8 +24,11 @@ with cols_top[0]:
         st.session_state.hist = []
         st.rerun()
 
-# Carregar modelo treinado
-modelo = joblib.load("modelo_gb.pkl")
+# Caminho P/ Carregar o modelo
+modelo_path = os.path.join(os.path.dirname(__file__), "..", "model", "modelo_gb.pkl")
+modelo_path = os.path.abspath(modelo_path)
+
+modelo = joblib.load(modelo_path)
 
 # Upload do CSV
 uploaded = st.file_uploader(" Anexe o CSV de sensores", type="csv")
