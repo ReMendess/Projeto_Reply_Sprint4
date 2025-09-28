@@ -80,11 +80,13 @@ status_cor = "green" if y_pred == 0 else "red"
 
 # Guarda no histórico
 registro = {
-    "Leitura": i + 1,
-    **{k: dados_raw.iloc[i][k] if k in dados_raw.columns else linha.get(k, None) for k in dados_raw.columns},
+    "Leitura": int(i + 1),
+    **{k: (dados_raw.iloc[i][k].item() if hasattr(dados_raw.iloc[i][k], "item") else dados_raw.iloc[i][k])
+       for k in dados_raw.columns},
     "Predição": int(y_pred),
-    "Probabilidade Falha": round(y_proba, 3)
+    "Probabilidade Falha": float(round(y_proba, 3))
 }
+
 st.session_state.hist.append(registro)
 
 # ===== UI: Última leitura =====
