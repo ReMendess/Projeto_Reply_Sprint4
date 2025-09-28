@@ -67,9 +67,9 @@ def enviar_whatsapp(numero, mensagem):
 # ==============================
 # Interface Streamlit
 # ==============================
-st.title("📡 Monitoramento de Sensores - Predição de Falha")
+st.title("Monitoramento de Sensores - Alertas")
 
-numero_whats = st.text_input("Insira o número do WhatsApp (com DDI, ex: 5511999999999)")
+numero_whats = st.text_input("Insira o número do WhatsApp do operador (com DDI, ex: 5511999999999)")
 
 st.sidebar.header("Manipular sensores")
 forcar_falha = st.sidebar.checkbox("Forçar falha")
@@ -94,6 +94,6 @@ if start:
         st.write(f" Risco identificado: **{risco}**")
 
         if risco == "Alto" and numero_whats:
-            enviar_whatsapp(numero_whats, f"🚨 Alerta: Alto risco de falha detectado!")
+            enviar_whatsapp(numero_whats, f" Alerta: Alto risco de falha detectado!")
 
         time.sleep(20)  # simula a cada 20s
