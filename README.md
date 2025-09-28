@@ -32,8 +32,7 @@
 
 # <a name="c1"></a>1. Solução
 
-Continuando com o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
-Veja toda nossa proposta previamente explicada em: https://github.com/ReMendess/Enterprise_ChallengeSprint_1_Reply
+Finalizando o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
 
 Abaixo nossa solução proposta
 
@@ -47,11 +46,11 @@ Abaixo nossa solução proposta
 
 # <a name="c3"></a>3. Ingestão e Armazenamento
 
-Nessa terceira etapa, criamos um Diagrama Entidade-Relacionamento (DER).
+Criamos um Diagrama Entidade-Relacionamento (DER).
 
 Arquivo: scriptSQL.sql
 
-Primeiro realizamos uma modelagem em uma ferramenta básica, com a intenção de identificar as principais entidades. Para definir as entidades, consideramos quais dados precisamos monitorar e guardar para treinar nosso modelo de Machine Learning de predição de falhas mecânicas. 
+Realizamos uma modelagem em uma ferramenta básica, com a intenção de identificar as principais entidades. Para definir as entidades, consideramos quais dados precisamos monitorar e guardar para treinar nosso modelo de Machine Learning de predição de falhas mecânicas. 
 Chegamos a quatro principais entidades: Máquinas, Sensores, Leitura do Sensor e Falha.
 Na entidade Máquina armazenaremos o nome, modelo, qualidade atual e status. Qualidade se refere a condição da máquina, que pode variar entre: Ruim, média ou boa. Status se refere se a máquina está ativa, em manutenção o desativada.
 
@@ -208,21 +207,10 @@ Tipo de falha → Descrição da falha ocorrida.
 <img src="/assets/ML5.png"></a>
 </p>
 
-### Random Forest Classifier
-
-No Geral o Modelo de Random Forest apresentou um baixo desempenho com o dataset, no qual apresenta resultados "enganosos" pois mesmo com a precisão bastante alta do modelo, apresenta dificuldade de intepretar falhas nas máquinas.
-
-Recall: **52% sinaliza que o modelo está tendo dificuldade em detectar as máquinas que apresentam falhas.
-
-F1-Score: 63% Uma métrica que combina a precisão do modelo, juntamente com o Recall. Nesse caso a precisão não indica tanta importancia, pois queremos detectar o caso em que as máquinas falham, que no caso são apenas 3.4 % das vezes.
-
-<p align="center">
-<img src="/assets/ML6.png"></a>
-</p>
 
 ### Gradient Boost
 
- O modelo **Gradient Boost se mostrou muito mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
+ O modelo **Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
 
  Recall: **77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
 
