@@ -6,7 +6,7 @@ from twilio.rest import Client
 
 st.title("Predição de Risco e Alerta")
 
-model = joblib.load("model/model.pkl")  # seu modelo treinado
+model = joblib.load("./monitor-factory/model/modelo_gb.pkl")  # seu modelo treinado
 df = st.session_state.get("sim_data")
 phone = st.text_input("Número de celular (formato internacional, ex +5511999999999)")
 
