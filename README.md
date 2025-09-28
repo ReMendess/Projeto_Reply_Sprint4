@@ -34,7 +34,7 @@
 
 Finalizando o desenvolvimento de nossa solução que consiste em uma plataforma inteligente de monitoramento industrial. Ela é baseada na integração de tecnologias como sensores IoT, armazenamento em nuvem, inteligência artificial e visualização de dados, com o objetivo é detectar antecipadamente possíveis falhas em equipamentos.
 
-Abaixo nossa solução proposta
+Abaixo o diagrama de nossa solução:
 
 <p align="center">
 <img src="diagrama.drawio" alt="Driagrama da solução"></a>
@@ -46,13 +46,13 @@ Abaixo nossa solução proposta
 
 # <a name="c3"></a>3. Ingestão e Armazenamento
 
-Criamos um Diagrama Entidade-Relacionamento (DER).
+Criamos os seguintes bancos de dados para suportar e permitir a persistência dos dados.
 
-Arquivo: scriptSQL.sql
+### Diagrama Entidade-Relacionamento inicial
+<p align="center">
+<img src="/assets/TabelaReply.png" alt="Sensores"></a>
+</p>
 
-Realizamos uma modelagem em uma ferramenta básica, com a intenção de identificar as principais entidades. Para definir as entidades, consideramos quais dados precisamos monitorar e guardar para treinar nosso modelo de Machine Learning de predição de falhas mecânicas. 
-Chegamos a quatro principais entidades: Máquinas, Sensores, Leitura do Sensor e Falha.
-Na entidade Máquina armazenaremos o nome, modelo, qualidade atual e status. Qualidade se refere a condição da máquina, que pode variar entre: Ruim, média ou boa. Status se refere se a máquina está ativa, em manutenção o desativada.
 
 Na entidade Sensores armazenaremos o tipo de sensor, a unidade medida pelo sensor, e dois valores de limites máximos e minímo, para ajudar a determinar e identificar anomalias. Além de status.
 
@@ -61,11 +61,6 @@ Na entidade Leitura do Sensor deve ser armazenado o valor captado, data e hora d
 Na entidade Falha será guardado a descrição da falha captada, nível de severidade, data registrada da ocorrência e status da falha, deve variar entre em aberto, em análise ou resolvido.
 
 Com essas entidades e atributos podemos maximizar a captura de dados relevantes e uteis para identificar as falhas, suas causas e correlações. E também monitorar e classificar a qualidade dos equipamentos. Permitindo uma análise mais profunda e até mesmo a implementação de modelos de inteligência artificial para contribuir com a predição de manutenção.
-
-### Diagrama Entidade-Relacionamento inicial
-<p align="center">
-<img src="/assets/Reply3.png" alt="Sensores"></a>
-</p>
 
 
 ## Entidades
@@ -113,9 +108,14 @@ Com essas entidades e atributos podemos maximizar a captura de dados relevantes 
 - `data_ocorrencia`  
 - `status_falha` → (Aberta, Em análise, Resolvida)
 - `id_maquina` (FK)  
-- `id_sensor` (FK) 
+- `id_sensor` (FK)
 
----
+
+Criamos também uma tabela de visualização para unificar os dados e permitir uma extração melhor:
+
+<p align="center">
+<img src="/assets/TabelaReply2.png" alt="Sensores"></a>
+</p>
 
 ## 2. Relações e Cardinalidades
 
@@ -130,19 +130,12 @@ Com essas entidades e atributos podemos maximizar a captura de dados relevantes 
 
 - **Sensor (0..1) — (N) Falha**  
   Uma falha pode estar associada a um sensor (ex: superaquecimento detectado por sensor de temperatura),  
-  mas também pode estar ligada à máquina em geral (ex: falha elétrica).  
-
-### Diagrama Entidade-Relacionamento Final
-Criado dentro do Oracle Database.
-<p align="center">
-<img src="/assets/DER_Reply3.png"></a>
-</p>
-
-Com essa estrutura já podemos armazenar os dados e futuramente utilizar ferramentas como Streamlit ou semelhantes para gerar uma visualização profunda e datalhada dos dados.
+  mas também pode estar ligada à máquina em geral (ex: falha elétrica).
+  
 
 # <a name="c4"></a>4. Machine Learning e Alertas
 
-Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais. Utilizamos esse dataset para treinar os modelos de machine learning, com o objetivo de criar modelos de predição de risco de falha de máquinas industriais.
+Utilizando o dataset "predictive_maintenance.csv" obtemos 10 mil registros de medições de sensores em máquinas industriais. Utilizamos esse dataset para treinar os modelos de machine learning, com o objetivo de criar um modelo de predição de risco de falha de máquinas industriais.
 
 Link do dataset: https://www.kaggle.com/datasets/shivamb/machine-predictive-maintenance-classification
 Arquivo Notebook Python: Reply (4).ipynb
@@ -168,23 +161,12 @@ Falhou → Indicador binário (sim/não) que informa se ocorreu falha na máquin
 
 Tipo de falha → Descrição da falha ocorrida.
 
-<p align="center">
-<img src="/assets/ML.png"></a>
-</p>
 
 ## Tratamento dos dados
 
 - Inicialmente, foi necessário fazer um tratamento nas colunas do data-set, que estavam em ingles.
 
-<p align="center">
-<img src="/assets/ML2.png"></a>
-</p>
-
 - Verificamos se haviam dados nulos, e quais os tipos de dados presentes no DataSet.
-
-<p align="center">
-<img src="/assets/ML3.png"></a>
-</p>
 
 - Aplicamos o tratamento de Features, Removendo algumas colunas que seriam "inúteis" para o treinamento do modelo como "Id Produto", "Id Único".
 
@@ -196,29 +178,32 @@ Tipo de falha → Descrição da falha ocorrida.
 
 - Verificamos alguns outliers, e removemos os mesmos.
 
+- Dividimos os dados em 70% treino e 30% teste, para aplicar os modelos de Classificação.
+
 <p align="center">
-<img src="/assets/ML4.png"></a>
+<img src="/assets/ML.png"></a>
 </p>
 
+<p align="center">
+<img src="/assets/ML2.png"></a>
+</p>
 
-- Dividimos os dados em 70% treino e 30% teste, para aplicar os modelos de Classificação.
+<p align="center">
+<img src="/assets/ML3.png"></a>
+</p>
 
 <p align="center">
 <img src="/assets/ML5.png"></a>
 </p>
 
-
 ### Gradient Boost
 
- O modelo **Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
+O modelo **Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalanceamento do data set, no qual apenas **3.4% dos dados correspondiam a falhas de maquinas, o que dificultou o treinamento dos outros modelos. O **Gradient Boost se mostrou muito eficiente nessa situação uma vez em que se trata de uma técnica de otimização interativa em que o modelo aprende com seus próprios erros. Apresentando então um Bom desempenho com o data set escolhido.
 
  Recall: **77%, essa métrica simboliza que de 100 falhas de máquina o modelo detecta 83. Assim sendo muito eficiente em um cenário real de produção, o que acarretaria a menos paradas na fábrica.
 
 F1-Score :** 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
 
-<p align="center">
-<img src="/assets/ML7.png"></a>
-</p>
 
 # <a name="c5"></a>5. Dashboards e Relatórios
 
