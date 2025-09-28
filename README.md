@@ -26,7 +26,7 @@
 
 [4. Machine Learning e Alertas](#c4)
 
-[5. Dashboards e Relatórios ](#c5)
+[5. Alerta via Whatsapp e Dashboards ](#c5)
 
 <br>
 
@@ -235,5 +235,5 @@ O modelo Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalancea
 F1-Score: 67 %, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
 
 
-# <a name="c5"></a>5. Dashboards e Relatórios
+# <a name="c5"></a>5. Alerta via Whatsapp e Dashboards
 
