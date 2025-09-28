@@ -2,8 +2,16 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-import requests
-import random
+from twilio.rest import Client
+
+# ==============================
+# Configuração Twilio
+# ==============================
+ACCOUNT_SID = "SEU_ACCOUNT_SID"
+AUTH_TOKEN = "SEU_AUTH_TOKEN"
+FROM_NUMBER = "whatsapp:+14155238886"  # Número padrão do sandbox WhatsApp Twilio
+
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 # ==============================
 # Função para simular leitura
@@ -35,7 +43,6 @@ def gerar_leitura(id_unico=1, id_produto=101, tipo="A"):
 # Modelo (simulação de risco)
 # ==============================
 def modelo_predicao(df):
-    # Simula regra de negócio (exemplo simples)
     risco = "Baixo"
     if df["Temperatura do processo [K]"].iloc[0] > 340 or df["Desgaste ferramenta [min]"].iloc[0] > 180:
         risco = "Alto"
@@ -44,26 +51,18 @@ def modelo_predicao(df):
     return risco
 
 # ==============================
-# Função para enviar WhatsApp
+# Função para enviar WhatsApp via Twilio
 # ==============================
 def enviar_whatsapp(numero, mensagem):
-    url = "https://api.evolution-api.com/message/sendText/your_instance"  # exemplo Evolution API
-    headers = {
-        "Content-Type": "application/json",
-        "apikey": "SUA_API_KEY"
-    }
-    payload = {
-        "number": numero,
-        "text": mensagem
-    }
     try:
-        response = requests.post(url, json=payload, headers=headers)
-        if response.status_code == 200:
-            st.success("✅ Mensagem enviada para WhatsApp!")
-        else:
-            st.error(f"❌ Erro ao enviar mensagem: {response.text}")
+        message = client.messages.create(
+            from_=FROM_NUMBER,
+            body=mensagem,
+            to=f"whatsapp:{numero}"
+        )
+        st.success(f"✅ Mensagem enviada! SID: {message.sid}")
     except Exception as e:
-        st.error(f"❌ Erro de conexão: {e}")
+        st.error(f"❌ Erro ao enviar mensagem: {e}")
 
 # ==============================
 # Interface Streamlit
