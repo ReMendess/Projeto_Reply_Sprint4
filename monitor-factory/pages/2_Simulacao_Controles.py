@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 st.title("⚙️ Simulação de Controles")
 
 # Carregar modelo treinado
-modelo = joblib.load("./monitor-factory/modelo/modelo.pkl")
+modelo = joblib.load("./monitor-factory/model/modelo_gb.pkl")
 
 # Escolha da máquina (só para exibição)
 maq = st.sidebar.selectbox("Escolha a máquina", ["M1", "M2", "M3"])
