@@ -11,6 +11,11 @@ ACCOUNT_SID = "AC60652cee4eaf2db95ab5755fb4123d38"
 AUTH_TOKEN = "f65b771bcdfec3d4d00d03332f874e15"
 FROM_NUMBER = "whatsapp:+14155238886"  # Número padrão do sandbox WhatsApp Twilio
 
+
+## CONFIG EvolutionAPI
+API_URL = "http://localhost:8080"
+API_KEY = "pwd159753"
+HEADERS = {"Authorization": f"Bearer {API_KEY}"}
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 # ==============================
@@ -50,20 +55,20 @@ def modelo_predicao(df):
         risco = "Médio"
     return risco
 
-# ==============================
-# Função para enviar WhatsApp via Twilio
-# ==============================
-def enviar_whatsapp(numero, mensagem):
+def enviarEvolution(numero, mensagem):
     try:
-        message = client.messages.create(
-            from_=FROM_NUMBER,
-            body=mensagem,
-            to=f"whatsapp:{numero}"
-        )
-        st.success(f"Mensagem enviada ao Operador! SID: {message.sid}")
+        payload = {
+            "to": numero,  # precisa ser no formato 5511999999999
+            "text": mensagem
+        }
+        resp = requests.post(f"{API_URL}/message/sendText/{INSTANCE}",
+                             headers=HEADERS, json=payload)
+        if resp.status_code == 200:
+            st.success(f"Mensagem enviada ao operador!")
+        else:
+            st.error(f"Erro ao enviar mensagem: {resp.text}")
     except Exception as e:
-        st.error(f" Erro ao enviar mensagem: {e}")
-
+        st.error(f"Erro de conexão com Evolution API: {e}")
 # ==============================
 # Interface Streamlit
 # ==============================
@@ -94,6 +99,6 @@ if start:
         st.write(f" Risco identificado: **{risco}**")
 
         if risco == "Alto" and numero_whats:
-            enviar_whatsapp(numero_whats, f" Alerta: Alto risco de falha detectado!")
+            enviarEvolution(numero_whats, f" Alerta: Alto risco de falha detectado!")
 
         time.sleep(20)  # simula a cada 20s
