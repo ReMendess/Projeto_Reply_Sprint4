@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import requests
-
+import Client
 
 ## CONFIG EvolutionAPI
 API_URL = "http://localhost:8080"
