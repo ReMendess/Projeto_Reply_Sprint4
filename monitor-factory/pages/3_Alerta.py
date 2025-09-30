@@ -3,13 +3,13 @@ import pandas as pd
 import numpy as np
 import time
 import requests
-import Client
+
 
 ## CONFIG EvolutionAPI
 API_URL = "http://localhost:8080"
 API_KEY = "pwd159753"
+INSTANCE = "teste-reply"  
 HEADERS = {"Authorization": f"Bearer {API_KEY}"}
-client = Client(ACCOUNT_SID, AUTH_TOKEN)
 
 # ==============================
 # Função para simular leitura
