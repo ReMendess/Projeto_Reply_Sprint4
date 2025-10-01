@@ -75,3 +75,7 @@ st.dataframe(dados.head(20), use_container_width=True)
 dados.index.name = 'Minutos'
 st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
                      "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50))
+
+# Armazena os dados simulados na sessão
+st.session_state.dados_simulados = dados.copy()
+
