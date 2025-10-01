@@ -14,17 +14,41 @@ def criar_dados_tratados(n_samples=800, seed=42):
     np.random.seed(seed)
     id_unico = np.arange(1, n_samples + 1)
     id_produto = ["M00001"] * n_samples
-    tipo = ["Alta"] * n_samples
+    tipo = np.random.choice(["Baixa", "Média", "Alta"], size=n_samples, p=[0.2, 0.3, 0.5])
 
+    # Ciclo operacional simulando desgaste progressivo
+    ciclo_operacional = np.linspace(0, 1, n_samples)
+    desgaste = np.clip((ciclo_operacional * 300 + np.random.normal(0, 15, n_samples)).astype(int), 0, 240)
+
+    # Sensores com ruído e eventos anômalos
     temp_ar = np.random.normal(loc=298, scale=1, size=n_samples)
     temp_proc = np.random.normal(loc=308, scale=2, size=n_samples)
     rotacao = np.random.normal(loc=1500, scale=100, size=n_samples)
     torque = np.random.normal(loc=40, scale=5, size=n_samples)
-    desgaste = np.clip(np.random.randint(0, 240, size=n_samples), 0, 240)
 
-    falhou = np.random.choice([0, 1], size=n_samples, p=[0.7, 0.3])
+    # Eventos críticos: aumento de temperatura e torque com desgaste alto
+    temp_proc += np.where(desgaste > 180, np.random.normal(5, 2, n_samples), 0)
+    torque += np.where(desgaste > 180, np.random.normal(10, 3, n_samples), 0)
+
+    # Probabilidade de falha baseada em desgaste
+    prob_falha = np.interp(desgaste, [0, 240], [0.05, 0.9])
+    falhou = np.random.binomial(1, prob_falha)
+
+    # Tipos de falha correlacionados com sensores
     tipos_falha = ["No Failure", "Power Failure", "Tool Wear Failure", "Overstrain Failure", "Random Failure"]
-    tipo_falha = [np.random.choice(tipos_falha) if f == 1 else "No Failure" for f in falhou]
+    tipo_falha = []
+    for i in range(n_samples):
+        if falhou[i]:
+            if temp_proc[i] > 312 and torque[i] > 55:
+                tipo_falha.append("Overstrain Failure")
+            elif desgaste[i] > 200:
+                tipo_falha.append("Tool Wear Failure")
+            elif rotacao[i] > 1600:
+                tipo_falha.append("Power Failure")
+            else:
+                tipo_falha.append("Random Failure")
+        else:
+            tipo_falha.append("No Failure")
 
     df = pd.DataFrame({
         "ID Unico": id_unico,
@@ -38,7 +62,7 @@ def criar_dados_tratados(n_samples=800, seed=42):
         "Falhou": falhou,
         "Tipo de falha": tipo_falha
     })
-    return df
+    return 
 
 #intervalo
 INTERVALO_MS = 5_000
