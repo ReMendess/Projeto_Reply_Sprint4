@@ -22,7 +22,7 @@ dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 
 # ----------------------------
 # Carregar modelo treinado
-
+modelo = joblib.load("modelo_gb.pkl")
 
 features = ['Tipo_Encoded','Temperatura do ar [K]','Temperatura do processo [K]',
             'Velocidade de rotação [rpm]','Torque [Nm]','Desgaste ferramenta [min]']
