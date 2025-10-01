@@ -2,22 +2,34 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from PIL import Image
+from sklearn.preprocessing import OrdinalEncoder
 
 st.set_page_config(layout="centered")
 st.title("Monitoramento da Fábrica")
 
 IMG_PATH = "./assets/maquinas.png"
 
-dados = pd_read_csv("predictive_maintenance.csv")
-colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha'  ]
+# Correção: pd.read_csv
+dados = pd.read_csv("predictive_maintenance.csv")
+
+colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 
+           'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 
+           'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha']
 dados.columns = colunas
-X = dados.drop(['ID Produto', 'ID Unico'], axis=1) # dados s/ as labels 'Inuteis' (tratamento de features)
-dados_novos = X[X['Velocidade de rotação [rpm]'] < 2750]
-from sklearn.preprocessing import OrdinalEncoder
-encoder = OrdinalEncoder(categories=[['L', 'M', 'H']])  # ordem manual
+
+# Remover colunas "inúteis"
+X = dados.drop(['ID Produto', 'ID Unico'], axis=1)
+
+# Copiar para evitar warning
+dados_novos = X[X['Velocidade de rotação [rpm]'] < 2750].copy()
+
+# Ajustar encoder para os valores usados
+encoder = OrdinalEncoder(categories=[['Baixa', 'Média', 'Alta']])
 dados_novos['Tipo_Encoded'] = encoder.fit_transform(dados_novos[['Tipo']])
 dados_novos = dados_novos.drop(['Tipo'], axis=1)
+
 st.write(dados_novos.head())
+
 # Máquinas cadastradas
 maquinas = {
     "M1": {"nome": "Torno CNC", "setor": "Usinagem", "id_produto": "M00001", "tipo": "Alta"},
@@ -31,15 +43,14 @@ info = maquinas[sel]
 
 # Imagem da planta
 planta = Image.open(IMG_PATH).resize((800, 600))
-st.image(planta, caption="Layout da Fábrica", use_container_width=False)
+st.image(planta, caption="Layout da Fábrica")
 
 # Informações da máquina
 st.subheader(f"{info['nome']} ({sel})")
 st.write(f"**Setor:** {info['setor']}")
 st.write(f"**Qualidade (Tipo):** {info['tipo']}")
 
-
-# Sobrescrever colunas fixas
+# Sobrescrever colunas fixas (simulação)
 dados["ID Produto"] = info["id_produto"]
 dados["Tipo"] = info["tipo"]
 
@@ -54,4 +65,3 @@ st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
 
 # Armazena os dados simulados na sessão
 st.session_state.dados_simulados = dados.copy()
-
