@@ -20,9 +20,11 @@ dados.columns = colunas
 encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 
-import os, joblib
+import os
+import joblib
 
-modelo_path = os.path.join("pages", "modelo_gb.pkl")
+# Caminho absoluto direto
+modelo_path = os.path.join(os.path.dirname(__file__), "modelo_gb.pkl")
 modelo = joblib.load(modelo_path)
 
 
