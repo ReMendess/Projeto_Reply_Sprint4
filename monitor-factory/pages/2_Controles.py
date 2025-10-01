@@ -19,21 +19,10 @@ dados.columns = colunas
 # Codificação do Tipo
 encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
-import os
 
-st.write("Diretório atual:", os.getcwd())
+import joblib
+modelo = joblib.load("model/modelo_gb.pkl")
 
-if os.path.exists("model/modelo_gb.pkl"):
-    st.success("✅ Arquivo encontrado!")
-else:
-    st.error("❌ Arquivo NÃO encontrado em model/modelo_gb.pkl")
-
-st.write("Arquivos em /model:", os.listdir("model"))
-
-# ----------------------------
-# Carregar modelo treinado
-modelo_path = os.path.abspath("model/modelo_gb.pkl")
-modelo = joblib.load(modelo_path)
 
 features = ['Tipo_Encoded','Temperatura do ar [K]','Temperatura do processo [K]',
             'Velocidade de rotação [rpm]','Torque [Nm]','Desgaste ferramenta [min]']
