@@ -20,8 +20,11 @@ dados.columns = colunas
 encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 
-import joblib
-modelo = joblib.load("modelo.pkl")
+import os, joblib
+
+modelo_path = os.path.join("pages", "modelo_gb.pkl")
+modelo = joblib.load(modelo_path)
+
 
 
 features = ['Tipo_Encoded','Temperatura do ar [K]','Temperatura do processo [K]',
