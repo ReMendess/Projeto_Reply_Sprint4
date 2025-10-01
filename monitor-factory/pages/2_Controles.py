@@ -62,7 +62,7 @@ def criar_dados_tratados(n_samples=800, seed=42):
         "Falhou": falhou,
         "Tipo de falha": tipo_falha
     })
-      return df
+    return df
 
 #intervalo
 INTERVALO_MS = 5_000
