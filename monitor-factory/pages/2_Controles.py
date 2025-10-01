@@ -35,7 +35,7 @@ def load_model_safely(preferred="modelo_gb.pkl"):
             st.caption(f"🔹 Modelo carregado de: `{found[0].as_posix()}`")
             return m
 
-    raise FileNotFoundError("❌ Modelo não encontrado. Verifique se o .pkl está no repositório/deployado.")
+    raise FileNotFoundError(" Modelo não encontrado. Verifique se o .pkl está no repositório/deployado.")
 
 # ==============================
 # Carregar modelo
@@ -74,7 +74,7 @@ features = [
 # ==============================
 # Simulação em tempo real
 # ==============================
-INTERVALO_SEG = 30
+INTERVALO_SEG = 20
 
 if "idx" not in st.session_state:
     st.session_state.idx = 0
@@ -132,7 +132,7 @@ qtd = st.slider(
     min_value=10, max_value=len(dados), value=50, step=10
 )
 
-prop_falhas = 0.3  # forçar 30% de falhas
+prop_falhas = 0.2  # forçar 30% de falhas
 qtd_falhas = int(qtd * prop_falhas)
 qtd_sem_falha = qtd - qtd_falhas
 
