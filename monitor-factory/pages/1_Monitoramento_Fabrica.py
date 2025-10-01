@@ -29,8 +29,6 @@ encoder = OrdinalEncoder(categories=[['L','M','H']])  # ordem manual
 dados_novos['Tipo_Encoded'] = encoder.fit_transform(dados_novos[['Tipo']])
 dados_novos = dados_novos.drop(['Tipo'], axis=1)
 
-st.write(dados_novos.head())
-
 # Máquinas cadastradas
 maquinas = {
     "M1": {"nome": "Torno CNC", "setor": "Usinagem", "id_produto": "M00001", "tipo": "Alta"},
