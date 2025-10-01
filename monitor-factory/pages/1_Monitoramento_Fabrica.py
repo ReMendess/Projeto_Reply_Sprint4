@@ -7,60 +7,37 @@ from sklearn.preprocessing import OrdinalEncoder
 st.set_page_config(layout="centered")
 st.title("Monitoramento da Fábrica")
 
-IMG_PATH = "./assets/maquinas.png"
-
-# Correção: pd.read_csv
+# Carregar dados
 dados = pd.read_csv("predictive_maintenance.csv")
-
 colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 
            'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 
            'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha']
 dados.columns = colunas
 
-# Remover colunas "inúteis"
+# Remover colunas inúteis
 X = dados.drop(['ID Produto', 'ID Unico'], axis=1)
 
-# Copiar para evitar warning
+# Criar cópia para evitar warnings
 dados_novos = X[X['Velocidade de rotação [rpm]'] < 2750].copy()
 
-# Ajustar encoder para os valores usados
-
-encoder = OrdinalEncoder(categories=[['L','M','H']])  # ordem manual
+# Encodar corretamente (L/M/H)
+encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados_novos['Tipo_Encoded'] = encoder.fit_transform(dados_novos[['Tipo']])
 dados_novos = dados_novos.drop(['Tipo'], axis=1)
 
-# Máquinas cadastradas
-maquinas = {
-    "M1": {"nome": "Torno CNC", "setor": "Usinagem", "id_produto": "M00001", "tipo": "Alta"},
-    "M2": {"nome": "Prensa Hidráulica", "setor": "Montagem", "id_produto": "P00001", "tipo": "Média"},
-    "M3": {"nome": "Esteira Transportadora", "setor": "Transporte", "id_produto": "E00001", "tipo": "Baixa"},
-}
+# ----------------------------
+# 🔹 Ordenar para trazer falhas primeiro
+dados_ordenados = dados.sort_values(by="Falhou", ascending=False).reset_index(drop=True)
 
-# Seleção fixa de máquina
-sel = "M3"
-info = maquinas[sel]
+# 🔹 Slider para escolher quantos registros exibir
+qtd = st.slider("Quantos registros deseja exibir?", min_value=5, max_value=len(dados_ordenados), value=20, step=5)
 
-# Imagem da planta
-planta = Image.open(IMG_PATH).resize((800, 600))
-st.image(planta, caption="Layout da Fábrica")
+# Exibir tabela
+st.subheader(f"Exibindo os {qtd} primeiros registros (falhas primeiro)")
+st.dataframe(dados_ordenados.head(qtd), use_container_width=True)
 
-# Informações da máquina
-st.subheader(f"{info['nome']} ({sel})")
-st.write(f"**Setor:** {info['setor']}")
-st.write(f"**Qualidade (Tipo):** {info['tipo']}")
-
-# Sobrescrever colunas fixas (simulação)
-dados["ID Produto"] = info["id_produto"]
-dados["Tipo"] = info["tipo"]
-
-# Exibir dados
-st.subheader("Sensores (simulação com 800 registros)")
-st.dataframe(dados.head(20), use_container_width=True)
-
-# Gráfico de linha
-dados.index.name = 'Minutos'
-st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
-                     "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50))
-
-# Armazena os dados simulados na sessão
-st.session_state.dados_simulados = dados.copy()
+# Gráfico baseado nos mesmos registros
+st.line_chart(dados_ordenados[["Temperatura do ar [K]", 
+                               "Temperatura do processo [K]", 
+                               "Velocidade de rotação [rpm]", 
+                               "Torque [Nm]"]].head(qtd))
