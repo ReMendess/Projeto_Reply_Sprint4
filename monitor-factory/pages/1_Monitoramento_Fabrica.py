@@ -24,7 +24,8 @@ X = dados.drop(['ID Produto', 'ID Unico'], axis=1)
 dados_novos = X[X['Velocidade de rotação [rpm]'] < 2750].copy()
 
 # Ajustar encoder para os valores usados
-encoder = OrdinalEncoder(categories=[['Baixa', 'Média', 'Alta']])
+
+encoder = OrdinalEncoder(categories=[['L','M','H']])  # ordem manual
 dados_novos['Tipo_Encoded'] = encoder.fit_transform(dados_novos[['Tipo']])
 dados_novos = dados_novos.drop(['Tipo'], axis=1)
 
