@@ -32,9 +32,14 @@ modelo = joblib.load(modelo_path)
 # Upload do CSV
 uploaded = st.file_uploader(" Anexe o CSV de sensores", type="csv")
 
-if uploaded is None:
-    st.info(" Anexe um arquivo CSV de sensores para iniciar a simulação.")
-    st.stop()
+if "hist" not in st.session_state or not st.session_state.hist:
+    st.info("Nenhum dado disponível ainda.")
+    if uploaded:
+        dados_raw = pd.read_csv(uploaded)
+        st.session_state.hist = dados_raw.to_dict("records")
+    else:
+        st.stop()
+
 
 # Carrega e pré-processa
 dados_raw = pd.read_csv(uploaded)
