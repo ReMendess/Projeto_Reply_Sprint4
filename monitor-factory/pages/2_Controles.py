@@ -173,4 +173,4 @@ else:
 # ==============================
 time.sleep(1)
 st.session_state.idx = (st.session_state.idx + 1) % len(dados)
-st.experimental_rerun()
+st.rerun()
