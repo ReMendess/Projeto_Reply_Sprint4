@@ -23,8 +23,6 @@ df = pd.DataFrame(st.session_state.hist)
 
 
 df_filtrado = df.tail()
-if filtro_tipo and "Tipo" in df.columns:
-    df_filtrado = df_filtrado[df_filtrado["Tipo"].isin(filtro_tipo)]
 
 # ==============================
 # Dashboard 1: Probabilidade de Falha
