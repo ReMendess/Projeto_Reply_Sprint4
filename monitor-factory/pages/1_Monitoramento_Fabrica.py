@@ -48,7 +48,7 @@ maquinas = {
 }
 
 # Seleção fixa de máquina
-sel = "M2"
+sel = "M3"
 info = maquinas[sel]
 
 # Imagem da planta
