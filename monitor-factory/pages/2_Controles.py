@@ -4,20 +4,20 @@ import joblib
 import time
 import plotly.graph_objects as go
 from sklearn.preprocessing import OrdinalEncoder
-
-# --- DROP-IN: carregador robusto do modelo ---
-import os
 from pathlib import Path
-import joblib
-import streamlit as st
 
+# ==============================
+# Função para carregar modelo
+# ==============================
 def load_model_safely(preferred="modelo_gb.pkl"):
+    from pathlib import Path
+
     names = [preferred, "modelo.pkl"] if preferred != "modelo.pkl" else ["modelo.pkl", "modelo_gb.pkl"]
 
-    # candidatos óbvios (raiz, pages, model, mesma pasta do script se __file__ existir)
+    # Locais candidatos
     candidates = []
     for nm in names:
-        candidates += [Path(nm), Path("pages")/nm, Path("model")/nm]
+        candidates += [Path(nm), Path("pages") / nm, Path("model") / nm]
         if "__file__" in globals():
             candidates.append(Path(__file__).parent / nm)
 
@@ -27,7 +27,7 @@ def load_model_safely(preferred="modelo_gb.pkl"):
             st.caption(f"🔹 Modelo carregado de: `{p.as_posix()}`")
             return m
 
-    # busca recursiva (último recurso)
+    # Busca recursiva como fallback
     for nm in names:
         found = list(Path(".").rglob(nm))
         if found:
@@ -35,46 +35,54 @@ def load_model_safely(preferred="modelo_gb.pkl"):
             st.caption(f"🔹 Modelo carregado de: `{found[0].as_posix()}`")
             return m
 
-    # diagnóstico útil
-    cwd = Path.cwd()
-    tree_hint = ", ".join([p.name for p in cwd.iterdir() if p.is_dir()])
-    raise FileNotFoundError(
-        f"Não encontrei {names}.\nCWD: {cwd.as_posix()}\nPastas aqui: {tree_hint}\n"
-        "Garanta que o .pkl está versionado/deployado."
-    )
+    raise FileNotFoundError("❌ Modelo não encontrado. Verifique se o .pkl está no repositório/deployado.")
 
-# use assim no topo da página:
+# ==============================
+# Carregar modelo
+# ==============================
 modelo = load_model_safely("modelo_gb.pkl")
 
+# ==============================
+# Configuração da página
+# ==============================
 st.set_page_config(layout="centered")
 st.title("🏭 Monitoramento da Fábrica - Simulação com Modelo Real")
 
-# ----------------------------
+# ==============================
 # Carregar dataset real
+# ==============================
 dados = pd.read_csv("predictive_maintenance.csv")
-colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 
-           'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 
-           'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha']
+colunas = [
+    'ID Unico', 'ID Produto', 'Tipo',
+    'Temperatura do ar [K]', 'Temperatura do processo [K]',
+    'Velocidade de rotação [rpm]', 'Torque [Nm]',
+    'Desgaste ferramenta [min]', 'Falhou', 'Tipo de falha'
+]
 dados.columns = colunas
 
-# Codificação do Tipo
-encoder = OrdinalEncoder(categories=[['L','M','H']])
+# Codificação do Tipo (L, M, H)
+encoder = OrdinalEncoder(categories=[['L', 'M', 'H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 
-features = ['Tipo_Encoded','Temperatura do ar [K]','Temperatura do processo [K]',
-            'Velocidade de rotação [rpm]','Torque [Nm]','Desgaste ferramenta [min]']
+# Features usadas no treino
+features = [
+    'Temperatura do ar [K]', 'Temperatura do processo [K]',
+    'Velocidade de rotação [rpm]', 'Torque [Nm]',
+    'Desgaste ferramenta [min]', 'Tipo_Encoded'
+]
 
-# ----------------------------
-# Controle de simulação
+# ==============================
+# Simulação em tempo real
+# ==============================
 INTERVALO_SEG = 30
 
 if "idx" not in st.session_state:
     st.session_state.idx = 0
 
-# Registro atual
+# Seleciona registro atual
 registro = dados.iloc[st.session_state.idx].to_dict()
 
-# Predição do modelo
+# Predição
 X_registro = pd.DataFrame([registro])[features]
 pred = modelo.predict(X_registro)[0]
 prob = modelo.predict_proba(X_registro)[0][1]
@@ -82,23 +90,24 @@ prob = modelo.predict_proba(X_registro)[0][1]
 registro["Predição"] = int(pred)
 registro["Probabilidade Falha"] = round(prob, 2)
 
-# ----------------------------
-# Exibir leitura atual
+# Exibir leitura
 st.markdown(f"### Última leitura (#{st.session_state.idx+1}) — atualiza a cada {INTERVALO_SEG}s")
 st.json(registro)
 
+# ==============================
 # Gauge de risco
+# ==============================
 fig = go.Figure(go.Indicator(
     mode="gauge+number",
     value=registro["Probabilidade Falha"],
     title={'text': "Risco de Falha"},
     gauge={
-        'axis': {'range': [0,1]},
+        'axis': {'range': [0, 1]},
         'bar': {'color': "darkblue"},
         'steps': [
-            {'range': [0,0.3], 'color': "lightgreen"},
-            {'range': [0.3,0.7], 'color': "yellow"},
-            {'range': [0.7,1], 'color': "red"},
+            {'range': [0, 0.3], 'color': "lightgreen"},
+            {'range': [0.3, 0.7], 'color': "yellow"},
+            {'range': [0.7, 1], 'color': "red"},
         ]
     }
 ))
@@ -112,15 +121,18 @@ elif registro["Probabilidade Falha"] < 0.7:
 else:
     st.error("🚨 ALERTA CRÍTICO")
 
-# ----------------------------
-# Amostra balanceada para exibição geral
+# ==============================
+# Visualização geral balanceada
+# ==============================
 falhas = dados[dados["Falhou"] == 1]
 sem_falha = dados[dados["Falhou"] == 0]
 
-qtd = st.slider("Quantos registros deseja visualizar?", 
-                min_value=10, max_value=len(dados), value=50, step=10)
+qtd = st.slider(
+    "Quantos registros deseja visualizar?",
+    min_value=10, max_value=len(dados), value=50, step=10
+)
 
-prop_falhas = 0.3  # forçar 30% falhas
+prop_falhas = 0.3  # forçar 30% de falhas
 qtd_falhas = int(qtd * prop_falhas)
 qtd_sem_falha = qtd - qtd_falhas
 
@@ -132,8 +144,9 @@ dados_balanceados = pd.concat([falhas_sample, sem_falha_sample]).sample(frac=1, 
 st.subheader(f"📋 Visualização de {qtd} registros (com mais falhas que no dataset original)")
 st.dataframe(dados_balanceados, use_container_width=True)
 
-# ----------------------------
+# ==============================
 # Observações por severidade
+# ==============================
 st.subheader("📌 Observações por severidade da falha")
 
 gravidade = {
@@ -155,8 +168,9 @@ if not falhas_detectadas.empty:
 else:
     st.write("Nenhuma falha prevista nos registros exibidos.")
 
-# ----------------------------
-# Atualizar índice para próxima leitura
+# ==============================
+# Atualização do índice
+# ==============================
 time.sleep(1)
 st.session_state.idx = (st.session_state.idx + 1) % len(dados)
 st.experimental_rerun()
