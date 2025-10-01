@@ -48,7 +48,7 @@ maquinas = {
 }
 
 # Menu Lateral
-sel = st.sidebar.radio("Selecione a máquina:", list(maquinas.keys()))
+sel = list(maquinas.keys()))
 n_dados = st.sidebar.slider("Quantos dados deseja gerar?", min_value=10, max_value=1000, value=200, step=10)
 
 info = maquinas[sel]
@@ -62,7 +62,7 @@ st.write(f"**Setor:** {info['setor']}")
 st.write(f"**Qualidade (Tipo):** {info['tipo']}")
 
 #gerar dataset
-dados = criar_dados_tratados(n_samples=n_dados, seed=int(sel[-1]))
+dados = criar_dados_tratados(n_samples=800, seed=int(sel[-1]))
 
 # Sobrescrevendo as colunas fixas
 dados["ID Produto"] = info["id_produto"]
