@@ -5,6 +5,47 @@ import time
 import plotly.graph_objects as go
 from sklearn.preprocessing import OrdinalEncoder
 
+# --- DROP-IN: carregador robusto do modelo ---
+import os
+from pathlib import Path
+import joblib
+import streamlit as st
+
+def load_model_safely(preferred="modelo_gb.pkl"):
+    names = [preferred, "modelo.pkl"] if preferred != "modelo.pkl" else ["modelo.pkl", "modelo_gb.pkl"]
+
+    # candidatos óbvios (raiz, pages, model, mesma pasta do script se __file__ existir)
+    candidates = []
+    for nm in names:
+        candidates += [Path(nm), Path("pages")/nm, Path("model")/nm]
+        if "__file__" in globals():
+            candidates.append(Path(__file__).parent / nm)
+
+    for p in candidates:
+        if p and p.exists():
+            m = joblib.load(p)
+            st.caption(f"🔹 Modelo carregado de: `{p.as_posix()}`")
+            return m
+
+    # busca recursiva (último recurso)
+    for nm in names:
+        found = list(Path(".").rglob(nm))
+        if found:
+            m = joblib.load(found[0])
+            st.caption(f"🔹 Modelo carregado de: `{found[0].as_posix()}`")
+            return m
+
+    # diagnóstico útil
+    cwd = Path.cwd()
+    tree_hint = ", ".join([p.name for p in cwd.iterdir() if p.is_dir()])
+    raise FileNotFoundError(
+        f"Não encontrei {names}.\nCWD: {cwd.as_posix()}\nPastas aqui: {tree_hint}\n"
+        "Garanta que o .pkl está versionado/deployado."
+    )
+
+# use assim no topo da página:
+modelo = load_model_safely("modelo_gb.pkl")
+
 st.set_page_config(layout="centered")
 st.title("🏭 Monitoramento da Fábrica - Simulação com Modelo Real")
 
