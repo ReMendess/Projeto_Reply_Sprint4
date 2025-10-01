@@ -9,7 +9,15 @@ st.title("Monitoramento da Fábrica")
 IMG_PATH = "./assets/maquinas.png"
 
 dados = pd_read_csv("preditive_maintence.csv")
-
+colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha'  ]
+dados.columns = colunas
+X = dados.drop(['ID Produto', 'ID Unico'], axis=1) # dados s/ as labels 'Inuteis' (tratamento de features)
+dados_novos = X[X['Velocidade de rotação [rpm]'] < 2750]
+from sklearn.preprocessing import OrdinalEncoder
+encoder = OrdinalEncoder(categories=[['L', 'M', 'H']])  # ordem manual
+dados_novos['Tipo_Encoded'] = encoder.fit_transform(dados_novos[['Tipo']])
+dados_novos = dados_novos.drop(['Tipo'], axis=1)
+st.write(dados_novos.head())
 # Máquinas cadastradas
 maquinas = {
     "M1": {"nome": "Torno CNC", "setor": "Usinagem", "id_produto": "M00001", "tipo": "Alta"},
@@ -30,8 +38,6 @@ st.subheader(f"{info['nome']} ({sel})")
 st.write(f"**Setor:** {info['setor']}")
 st.write(f"**Qualidade (Tipo):** {info['tipo']}")
 
-# Gerar dataset fixo com 800 registros
-dados = criar_dados_tratados(n_samples=800, seed=int(sel[-1]))
 
 # Sobrescrever colunas fixas
 dados["ID Produto"] = info["id_produto"]
