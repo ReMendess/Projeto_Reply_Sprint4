@@ -71,10 +71,6 @@ dados["Tipo"] = info["tipo"]
 st.subheader("Sensores (simulação com 800 registros)")
 st.dataframe(dados.head(20), use_container_width=True)
 
-# Botão de download
-csv = dados.to_csv(index=False).encode("utf-8")
-st.download_button("⬇️ Baixar CSV", data=csv, file_name=f"{sel}_sensores.csv", mime="text/csv")
-
 # Gráfico de linha
 dados.index.name = 'Minutos'
 st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
