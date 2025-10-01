@@ -24,7 +24,6 @@ dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 # Carregar modelo treinado
 modelo_path = os.path.join(os.path.dirname(__file__), "..", "model", "modelo_gb.pkl")
 modelo_path = os.path.abspath(modelo_path)
-
 # Carregar modelo
 modelo = joblib.load(modelo_path)
 
