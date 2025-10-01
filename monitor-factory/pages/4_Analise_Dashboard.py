@@ -21,12 +21,6 @@ if "hist" not in st.session_state or not st.session_state.hist:
 # Converte histórico para DataFrame
 df = pd.DataFrame(st.session_state.hist)
 
-# ==============================
-# Filtros Interativos
-# ==============================
-st.sidebar.header("Filtros")
-num_leituras = st.sidebar.slider("Número de leituras para visualizar", min_value=10, max_value=len(df), value=30, step=5)
-filtro_tipo = st.sidebar.multiselect("Tipos de processo", options=df["Tipo"].unique() if "Tipo" in df.columns else [], default=df["Tipo"].unique() if "Tipo" in df.columns else [])
 
 df_filtrado = df.tail(num_leituras)
 if filtro_tipo and "Tipo" in df.columns:
