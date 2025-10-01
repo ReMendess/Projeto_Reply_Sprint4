@@ -60,7 +60,7 @@ qtd = st.slider("Quantos registros deseja exibir?",
                 min_value=10, max_value=len(dados), value=50, step=10)
 
 # Proporção de falhas exibidas
-prop_falhas = 0.3  # 30% dos registros exibidos serão falhas
+prop_falhas = 0.2  # 30% dos registros exibidos serão falhas
 qtd_falhas = int(qtd * prop_falhas)
 qtd_sem_falha = qtd - qtd_falhas
 
