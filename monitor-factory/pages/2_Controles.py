@@ -14,6 +14,12 @@ if "dados_simulados" not in st.session_state:
     st.error("Os dados simulados ainda não foram gerados. Acesse a página 'Monitoramento da Fábrica' primeiro.")
     st.stop()
 
+
+# Carrega modelo 
+modelo_path = os.path.join(os.path.dirname(__file__), "..", "model", "modelo_gb.pkl") 
+modelo_path = os.path.abspath(modelo_path) 
+modelo = joblib.load(modelo_path)
+
 # Usa os dados da sessão
 dados_raw = st.session_state.dados_simulados.copy()
 
