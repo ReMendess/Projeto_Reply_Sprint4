@@ -46,7 +46,7 @@ modelo = load_model_safely("modelo_gb.pkl")
 # Configuração da página
 # ==============================
 st.set_page_config(layout="centered")
-st.title("🏭 Monitoramento da Fábrica - Simulação com Modelo Real")
+st.title(" Monitoramento da Fábrica - Simulação com Modelo Real")
 
 # ==============================
 # Carregar dataset real
@@ -115,11 +115,11 @@ st.plotly_chart(fig)
 
 # Status textual
 if registro["Probabilidade Falha"] < 0.3:
-    st.success("✅ Normal")
+    st.success(" Normal")
 elif registro["Probabilidade Falha"] < 0.7:
-    st.warning("⚠️ Atenção: risco moderado de falha")
+    st.warning(" Atenção: risco moderado de falha")
 else:
-    st.error("🚨 ALERTA CRÍTICO")
+    st.error(" ALERTA CRÍTICO")
 
 # ==============================
 # Visualização geral balanceada
@@ -141,21 +141,21 @@ sem_falha_sample = sem_falha.sample(min(qtd_sem_falha, len(sem_falha)), random_s
 
 dados_balanceados = pd.concat([falhas_sample, sem_falha_sample]).sample(frac=1, random_state=42).reset_index(drop=True)
 
-st.subheader(f"📋 Visualização de {qtd} registros (com mais falhas que no dataset original)")
+st.subheader(f" Visualização de {qtd} registros (com mais falhas que no dataset original)")
 st.dataframe(dados_balanceados, use_container_width=True)
 
 # ==============================
 # Observações por severidade
 # ==============================
-st.subheader("📌 Observações por severidade da falha")
+st.subheader(" Observações por severidade da falha")
 
 gravidade = {
-    "No Failure": "✅ Sem falha detectada",
-    "Power Failure": "⚡ Falha elétrica (grave)",
-    "Tool Wear Failure": "🛠️ Desgaste da ferramenta (médio)",
-    "Overstrain Failure": "📉 Sobrecarga mecânica (grave)",
-    "Random Failures": "❓ Falhas aleatórias (variável)",
-    "Heat Dissipation Failure": "🔥 Problema térmico (crítico)"
+    "No Failure": " Sem falha detectada",
+    "Power Failure": " Falha elétrica (grave)",
+    "Tool Wear Failure": " Desgaste da ferramenta (médio)",
+    "Overstrain Failure": " Sobrecarga mecânica (grave)",
+    "Random Failures": " Falhas aleatórias (variável)",
+    "Heat Dissipation Failure": " Problema térmico (crítico)"
 }
 
 falhas_detectadas = dados_balanceados[dados_balanceados["Falhou"] == 1].head(10)
@@ -163,7 +163,7 @@ falhas_detectadas = dados_balanceados[dados_balanceados["Falhou"] == 1].head(10)
 if not falhas_detectadas.empty:
     for _, row in falhas_detectadas.iterrows():
         tipo_falha = row["Tipo de falha"]
-        obs = gravidade.get(tipo_falha, "⚠️ Falha não classificada")
+        obs = gravidade.get(tipo_falha, " Falha não classificada")
         st.markdown(f"**ID Produto {row['ID Produto']}** → {obs}")
 else:
     st.write("Nenhuma falha prevista nos registros exibidos.")
