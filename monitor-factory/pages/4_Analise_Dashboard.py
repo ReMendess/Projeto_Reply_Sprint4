@@ -22,7 +22,7 @@ if "hist" not in st.session_state or not st.session_state.hist:
 df = pd.DataFrame(st.session_state.hist)
 
 
-df_filtrado = df.tail(num_leituras)
+df_filtrado = df.tail()
 if filtro_tipo and "Tipo" in df.columns:
     df_filtrado = df_filtrado[df_filtrado["Tipo"].isin(filtro_tipo)]
 
