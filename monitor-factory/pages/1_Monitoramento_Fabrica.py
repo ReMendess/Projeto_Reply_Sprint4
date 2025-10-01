@@ -9,7 +9,7 @@ st.title("Monitoramento da Fábrica")
 IMG_PATH = "./assets/maquinas.png"
 
 # --------- Função original ---------
-def criar_dados_tratados(n_samples=5000, seed=42):
+def criar_dados_tratados(n_samples=800, seed=42):
     np.random.seed(seed)
 
     id_unico = np.arange(1, n_samples + 1)
@@ -47,34 +47,32 @@ maquinas = {
     "M3": {"nome": "Esteira Transportadora", "setor": "Transporte", "id_produto": "E00001", "tipo": "Baixa"},
 }
 
-# Menu Lateral
-sel = list(maquinas.keys()))
-n_dados = st.sidebar.slider("Quantos dados deseja gerar?", min_value=10, max_value=1000, value=200, step=10)
-
+# Seleção fixa de máquina
+sel = "M1"
 info = maquinas[sel]
 
 planta = Image.open(IMG_PATH).resize((800, 600))
 st.image(planta, caption="Layout da Fábrica", use_container_width=False)
 
-#informações máquinas
+# Informações da máquina
 st.subheader(f"{info['nome']} ({sel})")
 st.write(f"**Setor:** {info['setor']}")
 st.write(f"**Qualidade (Tipo):** {info['tipo']}")
 
-#gerar dataset
+# Gerar dataset fixo com 800 registros
 dados = criar_dados_tratados(n_samples=800, seed=int(sel[-1]))
 
 # Sobrescrevendo as colunas fixas
 dados["ID Produto"] = info["id_produto"]
 dados["Tipo"] = info["tipo"]
 
-st.subheader(f" Sensores (simulação com {n_dados} registros)")
+st.subheader("Sensores (simulação com 800 registros)")
 st.dataframe(dados.head(20), use_container_width=True)
 
-# --------- Download + gráfico ---------
+# Download + gráfico
 csv = dados.to_csv(index=False).encode("utf-8")
 st.download_button("⬇️ Baixar CSV", data=csv, file_name=f"{sel}_sensores.csv", mime="text/csv")
 
 dados.index.name = 'Minutos'
 st.line_chart(dados[["Temperatura do ar [K]", "Temperatura do processo [K]",
-                     "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50),)
+                     "Velocidade de rotação [rpm]", "Torque [Nm]"]].head(50
