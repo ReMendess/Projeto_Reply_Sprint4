@@ -22,7 +22,7 @@ def criar_dados_tratados(n_samples=800, seed=42):
     torque = np.random.normal(loc=40, scale=5, size=n_samples)
     desgaste = np.clip(np.random.randint(0, 240, size=n_samples), 0, 240)
 
-    falhou = np.random.choice([0, 1], size=n_samples, p=[0.9, 0.1])
+    falhou = np.random.choice([0, 1], size=n_samples, p=[0.7, 0.3])
     tipos_falha = ["No Failure", "Power Failure", "Tool Wear Failure", "Overstrain Failure", "Random Failure"]
     tipo_falha = [np.random.choice(tipos_falha) if f == 1 else "No Failure" for f in falhou]
 
