@@ -20,15 +20,6 @@ dados.columns = colunas
 encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
 
-import os
-import joblib
-
-# Caminho absoluto direto
-modelo_path = os.path.join(os.path.dirname(__file__), "modelo_gb.pkl")
-modelo = joblib.load(modelo_path)
-
-
-
 features = ['Tipo_Encoded','Temperatura do ar [K]','Temperatura do processo [K]',
             'Velocidade de rotação [rpm]','Torque [Nm]','Desgaste ferramenta [min]']
 
