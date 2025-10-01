@@ -8,7 +8,7 @@ st.title("Monitoramento da Fábrica")
 
 IMG_PATH = "./assets/maquinas.png"
 
-dados = pd_read_csv("preditive_maintence.csv")
+dados = pd_read_csv("predictive_maintenance.csv")
 colunas = ['ID Unico', 'ID Produto', 'Tipo', 'Temperatura do ar [K]', 'Temperatura do processo [K]', 'Velocidade de rotação [rpm]', 'Torque [Nm]', 'Desgaste ferramenta [min]', 'Falhou','Tipo de falha'  ]
 dados.columns = colunas
 X = dados.drop(['ID Produto', 'ID Unico'], axis=1) # dados s/ as labels 'Inuteis' (tratamento de features)
