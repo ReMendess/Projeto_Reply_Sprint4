@@ -48,14 +48,6 @@ if "idx" not in st.session_state:
 if "hist" not in st.session_state:
     st.session_state.hist = []
 
-# Botão de reset
-cols_top = st.columns([1, 1, 3])
-with cols_top[0]:
-    if st.button("Reset simulação"):
-        st.session_state.idx = 0
-        st.session_state.hist = []
-        st.rerun()
-
 # Carrega modelo
 modelo_path = os.path.join(os.path.dirname(__file__), "..", "model", "modelo_gb.pkl")
 modelo_path = os.path.abspath(modelo_path)
