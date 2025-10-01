@@ -19,6 +19,16 @@ dados.columns = colunas
 # Codificação do Tipo
 encoder = OrdinalEncoder(categories=[['L','M','H']])
 dados['Tipo_Encoded'] = encoder.fit_transform(dados[['Tipo']])
+import os
+
+st.write("Diretório atual:", os.getcwd())
+
+if os.path.exists("model/modelo_gb.pkl"):
+    st.success("✅ Arquivo encontrado!")
+else:
+    st.error("❌ Arquivo NÃO encontrado em model/modelo_gb.pkl")
+
+st.write("Arquivos em /model:", os.listdir("model"))
 
 # ----------------------------
 # Carregar modelo treinado
