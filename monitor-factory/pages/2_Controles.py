@@ -8,7 +8,7 @@ from streamlit_autorefresh import st_autorefresh
 import os
 
 st.title("Controle das Máquinas")
-
+INTERVALO_MS = 30_000  # 30 segundos
 # Verifica se os dados simulados estão disponíveis na sessão
 if "dados_simulados" not in st.session_state:
     st.error("Os dados simulados ainda não foram gerados. Acesse a página 'Monitoramento da Fábrica' primeiro.")
@@ -21,10 +21,6 @@ dados_raw = st.session_state.dados_simulados.copy()
 mapa_tipo = {"Baixa": "L", "Média": "M", "Alta": "H"}
 dados = dados_raw.copy()
 dados["Tipo"] = dados["Tipo"].map(mapa_tipo)
-
-encoder = OrdinalEncoder(categories=[['L', 'M', 'H']])
-dados["Tipo_Encoded"] = encoder.fit_transform(dados[["Tipo"]])
-dados = dados.drop(columns=["Tipo"])
 
 # Mapeia Tipo e cria Tipo_Encoded
 mapa_tipo = {"Baixa": "L", "Média": "M", "Alta": "H"}
