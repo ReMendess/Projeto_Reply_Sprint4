@@ -13,8 +13,8 @@ st.title("Controle das Máquinas")
 def criar_dados_tratados(n_samples=800, seed=42):
     np.random.seed(seed)
     id_unico = np.arange(1, n_samples + 1)
-    id_produto = ["M00001"] * n_samples
-    tipo = ["Alta"] * n_samples
+    id_produto = ["E00001"] * n_samples
+    tipo = ["Baixo"] * n_samples
 
     temp_ar = np.random.normal(loc=298, scale=1, size=n_samples)
     temp_proc = np.random.normal(loc=308, scale=2, size=n_samples)
