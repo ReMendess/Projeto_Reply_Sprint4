@@ -14,7 +14,7 @@
 - Renan de Oliveira Mendes -> RM563145
 
 
-### Link do vídeo: h
+### Link do vídeo: https://www.youtube.com/watch?v=Jrmbx_ixLHg
 
 ## Sumário
 
@@ -24,7 +24,7 @@
 
 [3. Ingestão e Armazenamento](#c3)
 
-[4. Machine Learning e Alertas](#c4)
+[4. Machine Learning](#c4)
 
 [5. Alerta via Whatsapp e Dashboards ](#c5)
 
