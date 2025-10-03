@@ -15,7 +15,7 @@
 
 
 ### Link do vídeo: https://www.youtube.com/watch?v=Jrmbx_ixLHg
-
+_Só é possível executar o código localmente, devido ao uso de ferramentas e chamadas de APIs não suportados pelo Streamlit._
 ## Sumário
 
 [1. Solução](#c1)
