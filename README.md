@@ -26,7 +26,11 @@
 
 [4. Machine Learning](#c4)
 
-[5. Alerta via Whatsapp e Dashboards ](#c5)
+[5.Dashboards ](#c5)
+
+[6. Alerta via Whatsapp](#c6)
+
+
 
 <br>
 
@@ -235,17 +239,11 @@ O modelo Gradient Boost se mostrou o mais eficiente, mesmo diante do desbalancea
 F1-Score: 67%, simboliza os possiveis "alarmes falsos" de paradas, assim equilibra a precisão do modelo, juntamente com a predicão de falhas.
 
 
-# <a name="c5"></a>5. Alerta via Whatsapp e Dashboards
+# <a name="c5"></a>5. Dashboards
 
-Criamos uma interface simulando a parte final de nossa solução. 
-Link: https://projetoreplysprint4-yiovxkgmfcu6dal4np9f5b.streamlit.app
+Criamos uma interface com Dashboards interativos. 
 
-Nessa aplicação podemos simular o monitoramento das máquinas e sensores.
-Onde podemos ver os últimos registros.
-
-Simultanemente temos o modelo de Gradient Boost treinado anteriormente rodando em cima dos dados e prevendo riscos de falhas.
-
-Também desenvolvemos uma aplicação que ao cadastrar o número de celular, o modelo ao prever risco de falha, envia uma mensagem de aviso via Whatsapp para o número cadastrado.
+Nessa aplicação podemos analisar os dados de monitoramento das máquinas e sensores.
 
 <p align="center">
 <img src="/assets/reply_monitoramento.png"></a>
@@ -253,4 +251,36 @@ Também desenvolvemos uma aplicação que ao cadastrar o número de celular, o m
 
 <p align="center">
 <img src="/assets/reply_monitoramento2.png"></a>
+</p>
+
+
+# <a name="c6"></a>6. Alerta via Whatsapp
+
+Utilizando Evolution API, e N8N, plataforma de multi-agentes, criamos um fluxo de alertas personalizados, com LLMs que ao detectar risco de falhas avisa o operador ou responsável.
+
+<p align="center">
+<img src="/assets/Alerta_Reply.png"></a>
+</p>
+
+
+Por trás temos o modelo treinado previamente do Gradient Boost rodando sobre os dados.
+Ao detectar risco de falha em alguma determinada máquina, através do Evolution API e do Weebhook, ele aciona um fluxo com multiplos agentes treinados para enviar um alerta para o número do operador ou responsável cadastrado.
+
+<p align="center">
+<img src="/assets/EvolutionAPI.jpeg"></a>
+</p>
+
+<p align="center">
+<img src="/assets/Webhook.jpeg"></a>
+</p>
+
+<p align="center">
+<img src="/assets/N8N.jpeg"></a>
+</p>
+
+Não é um simples alerta, o agente consegue instruir e orientar em caso de falhas.
+Com mais tempo e recursos é possível treinar o modelo com dados históricos e ampliar sua atuação e eficiência no monitoramento.
+
+<p align="center">
+<img src="/assets/Alerta_Reply2.png"></a>
 </p>
