@@ -242,7 +242,7 @@ F1-Score: 67%, simboliza os possiveis "alarmes falsos" de paradas, assim equilib
 # <a name="c5"></a>5. Dashboards
 
 Criamos uma interface com Dashboards interativos. 
-
+pasta: monitor-factory
 Nessa aplicação podemos analisar os dados de monitoramento das máquinas e sensores.
 
 <p align="center">
@@ -257,6 +257,8 @@ Nessa aplicação podemos analisar os dados de monitoramento das máquinas e sen
 # <a name="c6"></a>6. Alerta via Whatsapp
 
 Utilizando Evolution API, e N8N, plataforma de multi-agentes, criamos um fluxo de alertas personalizados, com LLMs que ao detectar risco de falhas avisa o operador ou responsável.
+
+pasta: monitor-factory
 
 <p align="center">
 <img src="/assets/Alerta_Reply.png"></a>
